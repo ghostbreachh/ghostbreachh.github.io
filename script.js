@@ -75,6 +75,20 @@ if (window.matchMedia("(pointer:fine)").matches) {
     });
 }
 
+/* ---------- Shared glare on plain glass cards (about, stats) ----------
+   The CSS gives .glass-card a radial glare on hover; this feeds the
+   pointer position (--mx/--my) so the glow follows the cursor like the
+   tilt cards do — one motion language across the whole site. */
+if (window.matchMedia("(pointer:fine)").matches) {
+    document.querySelectorAll(".glass-card").forEach(card => {
+        card.addEventListener("mousemove", (e) => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");
+            card.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
+        });
+    });
+}
+
 /* ---------- Navbar shrink on scroll (rAF-throttled) ---------- */
 /* TEACHING: scroll fires dozens of times/sec. Running code on every
    event is wasteful. We set a flag and do the work once per animation
