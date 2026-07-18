@@ -128,19 +128,38 @@ const form   = document.getElementById("contactForm");
 const status = document.getElementById("formStatus");
 const TO     = "ghostbreachh@gmail.com";
 
+const mailFallback = document.getElementById("mailFallback");
+const mailLink     = document.getElementById("mailLink");
+const copyMail     = document.getElementById("copyMail");
+
 function showError(field, msg) {
     const err = field.parentElement.querySelector(".error");
     if (err) err.textContent = msg;
+}
+
+// Build the prefilled mailto string (used by both the auto-open and fallback).
+function buildMailto(name, email, company, service, message) {
+    const subject = encodeURIComponent(`[Ghostbreachh] ${service} — ${name}`);
+    const body = encodeURIComponent(
+        `Name: ${name}\n` +
+        `Email: ${email}\n` +
+        `Company: ${company || "—"}\n` +
+        `Service: ${service}\n\n` +
+        `${message}`
+    );
+    return `mailto:${TO}?subject=${subject}&body=${body}`;
 }
 
 form.addEventListener("submit", function (e) {
     e.preventDefault();
     let valid = true;
     status.textContent = "";
+    mailFallback.hidden = true;
     document.querySelectorAll(".error").forEach(e => e.textContent = "");
 
     const name    = document.getElementById("name");
     const email   = document.getElementById("email");
+    const company = document.getElementById("company");
     const service = document.getElementById("service");
     const message = document.getElementById("message");
 
@@ -153,24 +172,47 @@ form.addEventListener("submit", function (e) {
 
     if (!valid) return;
 
-    // Build a prefilled email and open the visitor's mail client.
-    const subject = encodeURIComponent(`[Ghostbreachh] ${service.value} — ${name.value.trim()}`);
-    const body = encodeURIComponent(
-        `Name: ${name.value.trim()}\n` +
-        `Email: ${email.value.trim()}\n` +
-        `Company: ${document.getElementById("company").value.trim() || "—"}\n` +
-        `Service: ${service.value}\n\n` +
-        `${message.value.trim()}`
+    const mailto = buildMailto(
+        name.value.trim(), email.value.trim(),
+        company.value.trim(), service.value, message.value.trim()
     );
-    const mailto = `mailto:${TO}?subject=${subject}&body=${body}`;
 
-    const btn = form.querySelector("button");
+    const btn = form.querySelector("button[type=submit]");
     btn.disabled = true; btn.textContent = "Opening mail…";
-    // Open the mail client; falls back gracefully if none is configured.
+
+    // Open the visitor's mail client. If none is configured (common on phones/
+    // locked-down laptops) the tab stays visible — we detect that and show a
+    // manual fallback so the visitor is NEVER left stuck.
+    const wasHidden = () => document.visibilityState === "hidden";
+    const before = wasHidden();
     window.location.href = mailto;
+
     setTimeout(() => {
         btn.disabled = false; btn.textContent = "Send Inquiry";
-        status.textContent = "Your mail app should have opened with a prefilled message. If not, email us directly at ghostbreachh@gmail.com";
-        form.reset();
+
+        if (!before && !wasHidden()) {
+            // Mail client did NOT take over -> show fallback.
+            mailLink.href = mailto;
+            mailFallback.hidden = false;
+            status.textContent = "We couldn't open your mail app automatically.";
+            form.reset();
+        } else {
+            // Mail client opened (or tab blurred) -> success message.
+            status.textContent = "Your mail app should have opened with a prefilled message. If not, email us directly at ghostbreachh@gmail.com";
+            form.reset();
+        }
     }, 1200);
+});
+
+// Copy the prefilled draft to clipboard from the fallback.
+copyMail.addEventListener("click", async () => {
+    const href = mailLink.getAttribute("href") || "";
+    const decoded = decodeURIComponent(href.replace(/^mailto:[^?]*\?/, "").replace(/&/g, "\n").replace(/=/g, ": "));
+    try {
+        await navigator.clipboard.writeText(decoded);
+        copyMail.textContent = "copied ✓";
+        setTimeout(() => copyMail.textContent = "copy email draft", 2000);
+    } catch {
+        copyMail.textContent = "copy failed — select manually";
+    }
 });

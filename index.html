@@ -66,7 +66,7 @@
 
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">~/about</a></li>
-                <li><a href="#skills">~/skills</a></li>
+                <li><a href="#skills">~/stack</a></li>
                 <li><a href="#services">~/services</a></li>
                 <li><a href="#work">~/work</a></li>
                 <li><a href="#contact">~/contact</a></li>
@@ -136,11 +136,10 @@
 
     <!-- ============ SKILLS ============ -->
     <section class="section" id="skills">
-        <p class="section-kicker">/* ~/skills */</p>
-        <h2 class="section-title reveal">technical skills</h2>
+        <p class="section-kicker">/* ~/stack */</p>
+        <h2 class="section-title reveal">our stack</h2>
         <p class="section-description reveal">
-            Practical offensive-security skills: web app testing, pentesting, vuln assessment and
-            secure development.
+            The tools and techniques we use to test, break and harden your systems.
         </p>
 
         <div class="grid">
@@ -267,7 +266,7 @@
         <div class="grid">
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
-                    <h3>Web App Security Assessment</h3>
+                    <h3>Web Security Assessment</h3>
                     <p>Find and fix vulnerabilities in modern web applications.</p>
                     <span class="card-tag">Web Security</span>
                 </div>
@@ -294,7 +293,7 @@
 
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
-                    <h3>WordPress Security Audits</h3>
+                    <h3>WordPress Security</h3>
                     <p>Hardening, plugin review and malware detection.</p>
                     <span class="card-tag">CMS</span>
                 </div>
@@ -303,18 +302,9 @@
 
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
-                    <h3>Security Reports</h3>
-                    <p>Clear technical writeups: findings, risk ratings, fixes.</p>
-                    <span class="card-tag">Reporting</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <h3>Security Awareness Training</h3>
-                    <p>Teach teams best practices to cut human-risk exposure.</p>
-                    <span class="card-tag">Training</span>
+                    <h3>Security Consulting</h3>
+                    <p>Clear reports, awareness training and tailored advisory for your team.</p>
+                    <span class="card-tag">Advisory</span>
                 </div>
                 <div class="card-glare" aria-hidden="true"></div>
             </article>
@@ -351,7 +341,8 @@
         <p class="section-kicker">/* ~/work */</p>
         <h2 class="section-title reveal">selected work</h2>
         <p class="section-description reveal">
-            Hands-on offensive security, automation and secure-app testing.
+            Internal labs, tooling and research we build to stay sharp — the same
+            methodology we bring to client engagements.
         </p>
 
         <div class="grid">
@@ -401,10 +392,11 @@
                     apps and lifts your security posture with affordable, no-nonsense engagements.
                 </p>
                 <ul class="contact-list">
-                    <li>🛡️ Security Assessments</li>
-                    <li>🔍 Vulnerability Assessments</li>
+                    <li>🛡️ Web Security Assessment</li>
+                    <li>🔍 Vulnerability Assessment</li>
                     <li>⚡ Penetration Testing</li>
                     <li>🌐 WordPress Security</li>
+                    <li>💡 Security Consulting</li>
                 </ul>
 
                 <!-- Terminal wit, part 2: mirrors the hero terminal but here it
@@ -449,8 +441,8 @@
                     <select id="service" name="service" required>
                         <option value="">Select a Service</option>
                         <option>Web Security Assessment</option>
-                        <option>Penetration Testing</option>
                         <option>Vulnerability Assessment</option>
+                        <option>Penetration Testing</option>
                         <option>WordPress Security</option>
                         <option>Security Consulting</option>
                     </select>
@@ -465,6 +457,13 @@
 
                 <button type="submit" class="btn-primary submit-btn">Send Inquiry</button>
                 <div id="formStatus" aria-live="polite"></div>
+                <!-- Fallback shown only if no mail client opens (e.g. phones
+                     with no mail app). Never leaves the visitor stuck. -->
+                <div id="mailFallback" hidden>
+                    <p class="contact-direct">No mail app? Send manually or copy the draft:</p>
+                    <a id="mailLink" class="btn-secondary" href="#">open prefilled email</a>
+                    <button type="button" id="copyMail" class="btn-secondary" style="margin-left:0;margin-top:10px;">copy email draft</button>
+                </div>
             </form>
         </div>
     </section>
