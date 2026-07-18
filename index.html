@@ -1,874 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--
+      TEACHING NOTE (Umar): This tiny script runs BEFORE the page paints.
+      It tags <html> with a "js" class ONLY when JS is working. We use that
+      class in CSS to hide .reveal elements before they animate in. If JS is
+      disabled/offline, the class is never added and ALL content shows by
+      default (no more "blank page because JS failed" bug from the old site).
+    -->
+    <script>document.documentElement.classList.add('js');</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Ghost Breach Security | Affordable Cybersecurity for Startups</title>
+    <title>Ghostbreachh — Learn • Secure • Defend</title>
 
+    <!-- SEO: description is what search engines + link previews show -->
     <meta name="description"
-        content="Ghost Breach Security by Sharmeen Khan. Affordable cybersecurity services for startups, SMEs, agencies, and growing businesses.">
+        content="Ghostbreachh is a Pakistani offensive-security collective. Bug bounty, web app security, penetration testing and WordPress hardening for startups and SMEs.">
 
     <meta name="keywords"
-        content="Cybersecurity, Ethical Hacker, Penetration Testing, Vulnerability Assessment, WordPress Security">
-        <meta name="theme-color" content="#050816">
+        content="cybersecurity, bug bounty, penetration testing, vulnerability assessment, OWASP, WordPress security, ethical hacking">
 
-        <meta property="og:title"
-        content="Ghost Breach Security">
-        
-        <meta property="og:description"
-        content="Affordable Cybersecurity for Startups and Small Businesses">
-        
-        <meta property="og:type"
-        content="website">
+    <!-- theme-color shows under the browser chrome on mobile. Purple = our brand. -->
+    <meta name="theme-color" content="#9d00ff">
+
+    <!-- Favicon (multi-size .ico built from your logo) -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/favicon.ico">
+
+    <!--
+      OG + Twitter cards = how the link looks when shared on LinkedIn / Instagram
+      bio / Twitter. Without og:image the link renders as plain text (old bug).
+      banner.webp is 1200x675 (16:9) which is the ideal social-preview size.
+    -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ghostbreachh — Learn • Secure • Defend">
+    <meta property="og:description"
+        content="Offensive-security collective. Bug bounty, pentesting and web app security for startups and SMEs.">
+    <meta property="og:image" content="assets/banner.webp">
+    <meta property="og:url" content="https://ghostbreachh.github.io/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ghostbreachh — Learn • Secure • Defend">
+    <meta name="twitter:description"
+        content="Offensive-security collective. Bug bounty, pentesting and web app security for startups and SMEs.">
+    <meta name="twitter:image" content="assets/banner.webp">
 
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="cyber-grid"></div>
-    <div class="noise"></div>
-    <!-- NAVBAR -->
 
+<body>
+    <div class="cyber-grid" aria-hidden="true"></div>
+
+    <!-- ============ NAVBAR ============ -->
+    <!--
+      Levente vibe: nav labels use the "~/path" convention so the site reads
+      like a filesystem — instantly signals "this person is a real operator".
+    -->
     <header>
         <nav class="navbar">
-            <div class="logo">
-                Ghost Breach Security
-            </div>
+            <a class="logo" href="#home" aria-label="Ghostbreachh home">
+                <img src="assets/favicon.ico" alt="" width="28" height="28" class="logo-mark">
+                <span>ghostbreachh</span>
+            </a>
 
             <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#highlights">Professional Highlights</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">~/about</a></li>
+                <li><a href="#skills">~/skills</a></li>
+                <li><a href="#services">~/services</a></li>
+                <li><a href="#work">~/work</a></li>
+                <li><a href="#contact">~/contact</a></li>
             </ul>
 
-            <button
-                class="hamburger"
-                id="hamburger"
-                aria-label="Toggle Menu">
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
                 ☰
             </button>
         </nav>
     </header>
 
-    <!-- Hero -->
+    <!-- ============ HERO ============ -->
+    <section class="hero reveal" id="home">
+        <div class="hero-grid">
+            <!-- LEFT: the authoritative "terminal dossier" block -->
+            <div class="hero-content">
+                <span class="hero-badge">LEARN • SECURE • DEFEND</span>
 
-<section class="hero reveal reveal-up" id="home">
-    <canvas id="particles"></canvas>
+                <h1 class="hero-title">ghostbreachh</h1>
+                <p class="hero-sub">offensive-security collective</p>
 
-    <div class="hero-glow"></div>
+                <!-- A fake terminal snippet. Speaks the visitor's language. -->
+                <div class="terminal" aria-hidden="true">
+                    <div class="terminal-bar">
+                        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                        <span class="terminal-title">ghost@breach: ~</span>
+                    </div>
+                    <pre class="terminal-body"><span class="c-prompt">$</span> whoami
+<span class="c-out">ghostbreachh — a crew of 10 breaking into security, ethically.</span>
+<span class="c-prompt">$</span> cat mission.txt
+<span class="c-out">Enterprise-grade security, made accessible to startups &amp; SMEs.</span>
+<span class="c-prompt">$</span> <span class="cursor">_</span></pre>
+                </div>
 
-    <div class="hero-content">
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-primary">Request Assessment</a>
+                    <a href="#services" class="btn-secondary">Explore Services</a>
+                </div>
+            </div>
 
-        <span class="hero-badge">
-            CYBERSECURITY • STARTUPS • SMEs
-        </span>
-
-        <h1 class="animate-slide-up">
-            Ghost Breach Security
-        </h1>
-
-        <h2 class="typing-container" aria-live="polite">
-            <span id="typed-text"></span>
-            <span class="cursor">|</span>
-        </h2>
-
-        <p class="hero-description animate-fade delay-200">
-            Security Assessments, Vulnerability Analysis,
-            Penetration Testing and WordPress Security Audits, and security consulting for startups, SMEs, and growing businesses.
-        </p>
-
-        <div class="hero-buttons animate-scale delay-300">
-
-            <a href="#contact" class="btn-primary">
-                Request Assessment
-            </a>
-
-            <a href="#services" class="btn-secondary">
-                Explore Services
-            </a>
-
+            <!-- RIGHT: your banner art (now a 115KB WebP, loads fast) -->
+            <div class="hero-art">
+                <img src="assets/banner.webp" alt="Ghostbreachh banner" width="1200" height="675"
+                    decoding="async" fetchpriority="high">
+            </div>
         </div>
-
-    </div>
-
-</section>
-<!-- Features -->
-
-<section class="features">
-
-    <div class="glass-card">
-
-        <h3>Web Application Security</h3>
-
-        <p>
-            Comprehensive security assessments focused on OWASP Top 10 risks, authentication flaws, and business logic vulnerabilities.
-        </p>
-
-    </div>
-
-    <div class="glass-card">
-
-        <h3>Penetration Testing</h3>
-
-        <p>
-            Simulate real-world attacks to identify exploitable weaknesses before threat actors do.
-        </p>
-
-    </div>
-
-    <div class="glass-card">
-
-        <h3>Security Hardening</h3>
-
-        <p>
-            Strengthen WordPress, servers, and web applications using secure configurations and best practices.
-        </p>
-
-    </div>
-
-</section>
-
-    <!-- ABOUT -->
-
-    <section class="about reveal reveal-up" id="about">
-
-        <h2 class="section-title reveal reveal-up">
-            About
-        </h2>
-
-    <div class="about-grid animate-fade-up">
-        <div class="glass-card">
-
-            <p>
-                Ghost Breach Security is an independent cybersecurity initiative founded by MR. Omar Anxari to help startups, SMEs, agencies, and growing businesses improve their security posture through affordable vulnerability assessments, penetration testing, WordPress security, and security consulting. The mission is to make enterprise-level cybersecurity accessible to organizations of every size.
-            </p>
-
-        </div>
-    </div>
     </section>
 
-    <!-- SKILLS -->
+    <!-- ============ ABOUT ============ -->
+    <section class="section" id="about">
+        <p class="section-kicker">/* ~/about */</p>
+        <h2 class="section-title reveal">who we are</h2>
 
-<section class="section" id="skills">
-
-    <h2 class="section-title reveal reveal-up">
-        Technical Skills
-    </h2>
-    
-    <p class="section-description reveal reveal-up delay-100">
-        Practical cybersecurity skills focused on web application security, penetration testing, vulnerability assessment, and secure software development.
-    </p>
-
-    <div class="skills-grid">
-
-        <article class="tilt-card reveal reveal-left animate-scale" tabindex="0">
-
-            <div class="card-content">
-
-                <div class="card-icon">🛡️</div>
-            
-                <h3>Web Security</h3>
-            
+        <div class="about-grid reveal">
+            <div class="glass-card">
                 <p>
-                    Secure web applications against OWASP Top 10 vulnerabilities, authentication flaws, and common attack vectors.
+                    Ghostbreachh is an independent offensive-security collective founded and led by
+                    a team of Pakistani researchers. We help startups, SMEs, agencies and growing
+                    businesses improve their security posture through affordable vulnerability
+                    assessments, penetration testing, WordPress hardening and security consulting.
+                    Our mission is to make enterprise-level security accessible to organizations of
+                    every size — and to train the next generation of defenders while we do it.
                 </p>
-            
-                <span class="card-tag">
-                    OWASP
-                </span>
-            
             </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-up delay-100 animate-scale" tabindex="0">
-
-            <div class="card-content">
-
-                <div class="card-icon">🔍</div>
-            
-                <h3>Penetration Testing</h3>
-            
-                <p>
-                    Conduct authorized penetration testing to uncover exploitable security weaknesses before attackers do.
-                </p>
-            
-                <span class="card-tag">
-                    VAPT
-                </span>
-            
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-right delay-200 animate-scale" tabindex="0">
-
-            <div class="card-content">
-
-                <div class="card-icon">⚠️</div>
-            
-                <h3>Vulnerability Assessment</h3>
-            
-                <p>
-                    Perform comprehensive vulnerability assessments and provide prioritized remediation recommendations.
-                </p>
-            
-                <span class="card-tag">
-                    Assessment
-                </span>
-            
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-left delay-300 animate-scale" tabindex="0">
-
-            <div class="card-content">
-
-                <div class="card-icon">📋</div>
-            
-                <h3>OWASP Top 10</h3>
-            
-                <p>
-                    Apply OWASP Top 10 security standards to identify and reduce critical web application risks.
-                </p>
-            
-                <span class="card-tag">
-                    OWASP
-                </span>
-            
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-up delay-400 animate-scale" tabindex="0">
-
-            <div class="card-content">
-
-                <div class="card-icon">🕷️</div>
-            
-                <h3>Burp Suite</h3>
-            
-                <p>
-                    Use Burp Suite Professional workflows for web application testing, interception, and vulnerability analysis.
-                </p>
-            
-                <span class="card-tag">
-                    Tool
-                </span>
-            
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-right delay-500 animate-scale" tabindex="0">
-
-            <div class="card-content">
-
-                <div class="card-icon">🌐</div>
-            
-                <h3>Nmap</h3>
-            
-                <p>
-                    Discover network assets, identify exposed services, and support infrastructure security assessments.
-                </p>
-            
-                <span class="card-tag">
-                    Network
-                </span>
-            
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-left animate-scale" tabindex="0">
-
-            <div class="card-content">
-
-                <div class="card-icon">🐧</div>
-            
-                <h3>Linux Security</h3>
-            
-                <p>
-                    Strengthen Linux servers through secure configuration, privilege management, and system hardening.
-                </p>
-            
-                <span class="card-tag">
-                    Linux
-                </span>
-            
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-up delay-100 animate-scale" tabindex="0">
-
-            <div class="card-content">
-
-                <div class="card-icon">🔒</div>
-            
-                <h3>WordPress Security</h3>
-            
-                <p>
-                    Protect WordPress websites through malware scanning, plugin reviews, hardening, and security monitoring.
-                </p>
-            
-                <span class="card-tag">
-                    CMS
-                </span>
-            
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-right delay-200 animate-scale" tabindex="0">
-
-            <div class="card-content">
-
-                <div class="card-icon">💻</div>
-            
-                <h3>JavaScript</h3>
-            
-                <p>
-                    Build secure, interactive, and performance-optimized user interfaces using modern JavaScript.
-                </p>
-            
-                <span class="card-tag">
-                    Frontend
-                </span>
-            
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-up delay-300 animate-scale" tabindex="0">
-
-            <div class="card-content">
-
-                <div class="card-icon">⚙️</div>
-            
-                <h3>PHP</h3>
-            
-                <p>
-                    Develop secure backend functionality with input validation, authentication, and secure coding practices.
-                </p>
-            
-                <span class="card-tag">
-                    Backend
-                </span>
-            
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-    </div>
-
-</section>
-
-   <!-- SERVICES -->
-
-<section class="section" id="services">
-
-    <h2 class="section-title reveal reveal-up">
-        Services
-    </h2>
-
-    <p class="section-description">
-        Affordable cybersecurity services designed to help startups and small businesses strengthen their security posture.
-    </p>
-
-    <div class="grid">
-
-        <article class="tilt-card reveal reveal-left animate-scale" tabindex="0">
-
-            <div class="card-content">
-        
-                <h3>Web Application Security Assessment</h3>
-        
-                <p>
-                    Identify vulnerabilities and strengthen the security of modern web applications.
-                </p>
-        
-                <span class="card-tag">
-                    Web Security
-                </span>
-        
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-up delay-100 animate-scale" tabindex="0">
-
-            <div class="card-content">
-        
-                <h3>Vulnerability Assessment</h3>
-        
-                <p>
-                    Discover security weaknesses and provide actionable remediation recommendations.
-                </p>
-        
-                <span class="card-tag">
-                    Assessment
-                </span>
-        
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-right delay-200 animate-scale" tabindex="0">
-
-            <div class="card-content">
-        
-                <h3>Penetration Testing</h3>
-        
-                <p>
-                    Simulate real-world attacks to identify exploitable vulnerabilities.
-                </p>
-        
-                <span class="card-tag">
-                    VAPT
-                </span>
-        
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-left delay-300 animate-scale" tabindex="0">
-
-            <div class="card-content">
-        
-                <h3>WordPress Security Audits</h3>
-        
-                <p>
-                    Secure WordPress websites through hardening, plugin reviews, and malware detection.
-                </p>
-        
-                <span class="card-tag">
-                    CMS
-                </span>
-        
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-up delay-400 animate-scale" tabindex="0">
-
-            <div class="card-content">
-        
-                <h3>Security Reports</h3>
-        
-                <p>
-                    Deliver clear technical reports with findings, risk ratings, and remediation guidance.
-                </p>
-        
-                <span class="card-tag">
-                    Reporting
-                </span>
-        
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-right delay-500 animate-scale" tabindex="0">
-
-            <div class="card-content">
-        
-                <h3>Security Awareness Training</h3>
-        
-                <p>
-                    Educate teams on cybersecurity best practices to reduce human security risks.
-                </p>
-        
-                <span class="card-tag">
-                    Training
-                </span>
-        
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-    </div>
-
-</section>
-
-<!-- STATISTICS -->
-
-<section
-class="section"
-id="highlights">
-
-    <h2 class="section-title reveal reveal-up">
-        Professional Highlights
-    </h2>
-
-    <div class="grid">
-
-        <div class="glass-card reveal reveal-left animate-slide-up">
-
-            <h3 data-counter="10">
-                0
-            </h3>
-
-            <p>Security Projects</p>
-
         </div>
+    </section>
 
-        <div class="glass-card reveal reveal-up delay-100 animate-slide-up">
+    <!-- ============ SKILLS ============ -->
+    <section class="section" id="skills">
+        <p class="section-kicker">/* ~/skills */</p>
+        <h2 class="section-title reveal">technical skills</h2>
+        <p class="section-description reveal">
+            Practical offensive-security skills: web app testing, pentesting, vuln assessment and
+            secure development.
+        </p>
 
-            <h3 data-counter="30">
-                0
-            </h3>
+        <div class="grid">
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">🛡️</div>
+                    <h3>Web Security</h3>
+                    <p>Harden web apps against OWASP Top 10, auth flaws and common attack vectors.</p>
+                    <span class="card-tag">OWASP</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
 
-            <p>Labs Completed</p>
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">🔍</div>
+                    <h3>Penetration Testing</h3>
+                    <p>Authorized engagements to uncover exploitable weaknesses before attackers do.</p>
+                    <span class="card-tag">VAPT</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
 
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">⚠️</div>
+                    <h3>Vulnerability Assessment</h3>
+                    <p>Comprehensive scans with prioritized, actionable remediation guidance.</p>
+                    <span class="card-tag">Assessment</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">📋</div>
+                    <h3>OWASP Top 10</h3>
+                    <p>Apply OWASP standards to find and reduce critical web-app risks.</p>
+                    <span class="card-tag">OWASP</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">🕷️</div>
+                    <h3>Burp Suite</h3>
+                    <p>Professional interception, fuzzing and vuln-analysis workflows.</p>
+                    <span class="card-tag">Tool</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">🌐</div>
+                    <h3>Nmap</h3>
+                    <p>Asset discovery, exposed-service identification, infra assessments.</p>
+                    <span class="card-tag">Network</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">🐧</div>
+                    <h3>Linux Security</h3>
+                    <p>Secure configuration, privilege management and system hardening.</p>
+                    <span class="card-tag">Linux</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">🔒</div>
+                    <h3>WordPress Security</h3>
+                    <p>Malware scanning, plugin review, hardening and monitoring.</p>
+                    <span class="card-tag">CMS</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">💻</div>
+                    <h3>JavaScript</h3>
+                    <p>Secure, fast, interactive front-ends with modern JS.</p>
+                    <span class="card-tag">Frontend</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">⚙️</div>
+                    <h3>PHP</h3>
+                    <p>Secure backend logic: validation, auth, safe coding.</p>
+                    <span class="card-tag">Backend</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">🐍</div>
+                    <h3>Python</h3>
+                    <p>Recon automation, tooling and exploit scripting.</p>
+                    <span class="card-tag">Automation</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
         </div>
+    </section>
 
-        <div class="glass-card reveal reveal-right delay-200 animate-slide-up">
+    <!-- ============ SERVICES ============ -->
+    <section class="section" id="services">
+        <p class="section-kicker">/* ~/services */</p>
+        <h2 class="section-title reveal">services</h2>
+        <p class="section-description reveal">
+            Affordable cybersecurity engagements built for startups and small businesses.
+        </p>
 
-            <h3 data-counter="300">
-                0
-            </h3>
+        <div class="grid">
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>Web App Security Assessment</h3>
+                    <p>Find and fix vulnerabilities in modern web applications.</p>
+                    <span class="card-tag">Web Security</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
 
-            <p>Research Hours</p>
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>Vulnerability Assessment</h3>
+                    <p>Discover weaknesses with prioritized remediation steps.</p>
+                    <span class="card-tag">Assessment</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
 
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>Penetration Testing</h3>
+                    <p>Simulate real-world attacks to expose exploitable flaws.</p>
+                    <span class="card-tag">VAPT</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>WordPress Security Audits</h3>
+                    <p>Hardening, plugin review and malware detection.</p>
+                    <span class="card-tag">CMS</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>Security Reports</h3>
+                    <p>Clear technical writeups: findings, risk ratings, fixes.</p>
+                    <span class="card-tag">Reporting</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>Security Awareness Training</h3>
+                    <p>Teach teams best practices to cut human-risk exposure.</p>
+                    <span class="card-tag">Training</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
         </div>
+    </section>
 
-        <div class="glass-card reveal reveal-left delay-300 animate-slide-up">
+    <!-- ============ HIGHLIGHTS / STATS ============ -->
+    <section class="section" id="highlights">
+        <p class="section-kicker">/* ~/stats */</p>
+        <h2 class="section-title reveal">by the numbers</h2>
 
-            <h3 data-counter="12">
-                0
-            </h3>
-
-            <p>Technical Skills</p>
-
+        <div class="grid stats-grid">
+            <div class="glass-card reveal">
+                <h3 data-counter="10">0</h3>
+                <p>Security Projects</p>
+            </div>
+            <div class="glass-card reveal">
+                <h3 data-counter="30">0</h3>
+                <p>Labs Completed</p>
+            </div>
+            <div class="glass-card reveal">
+                <h3 data-counter="300">0</h3>
+                <p>Research Hours</p>
+            </div>
+            <div class="glass-card reveal">
+                <h3 data-counter="12">0</h3>
+                <p>Technical Skills</p>
+            </div>
         </div>
+    </section>
 
-    </div>
+    <!-- ============ WORK / PROJECTS ============ -->
+    <section class="section" id="work">
+        <p class="section-kicker">/* ~/work */</p>
+        <h2 class="section-title reveal">selected work</h2>
+        <p class="section-description reveal">
+            Hands-on offensive security, automation and secure-app testing.
+        </p>
 
-</section>
+        <div class="grid">
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>Security Audit Lab</h3>
+                    <p>Controlled environment for OWASP Top 10 analysis, secure-coding practice and
+                        web pentesting with Burp Suite, OWASP ZAP and manual techniques.</p>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
 
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>Recon Automation</h3>
+                    <p>Python recon toolkit: subdomain enum, DNS analysis, HTTP fingerprinting and
+                        tech detection to accelerate engagements.</p>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
 
-    <!-- PROJECTS -->
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>HTB Learning Labs</h3>
+                    <p>Documented walkthroughs: privilege escalation, web exploitation, Active
+                        Directory, Linux/Windows security and post-exploitation.</p>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+        </div>
+    </section>
 
-<section class="section" id="projects">
-
-    <h2 class="section-title reveal reveal-up">
-        Projects
-    </h2>
-    
-    <p class="section-description reveal reveal-up delay-100">
-        Selected cybersecurity projects demonstrating hands-on experience in offensive security, automation, and secure application testing.
-    </p>
-
-    <div class="grid">
-
-        <article class="tilt-card reveal reveal-left animate-fade-up" tabindex="0">
-
-            <div class="card-content">
-        
-                <h3>Security Audit Lab</h3>
-        
-                <p>
-                    Hands-on security testing environment for analyzing OWASP Top 10 vulnerabilities, secure coding practices, and web application penetration testing using Burp Suite, OWASP ZAP, and manual testing techniques.
-                </p>
-        
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-scale delay-200 animate-fade-up" tabindex="0">
-
-            <div class="card-content">
-        
-                <h3>Recon Automation Scripts</h3>
-        
-                <p>
-                    Python-based reconnaissance toolkit that automates subdomain enumeration, DNS analysis, HTTP fingerprinting, and technology detection to accelerate penetration testing engagements.
-                </p>
-        
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-        <article class="tilt-card reveal reveal-right delay-300 animate-fade-up" tabindex="0">
-
-            <div class="card-content">
-        
-                <h3>HTB Learning Labs</h3>
-        
-                <p>
-                    Documented walkthroughs and practical labs covering privilege escalation, web exploitation, Active Directory fundamentals, Linux security, Windows security, and post-exploitation techniques.
-                </p>
-        
-            </div>
-        
-            <div class="card-glare"></div>
-        
-        </article>
-
-    </div>
-
-</section>
-
-    <!-- CONTACT -->
-
+    <!-- ============ CONTACT ============ -->
+    <!--
+      PHASE 1 FIX: the form now actually delivers. On submit we build a
+      mailto: link (your choice) with a prefilled subject + body and open the
+      visitor's mail client. No backend needed. The mailto: anchor is also a
+      plain fallback for no-JS users.
+    -->
     <section id="contact" class="contact-section" aria-labelledby="contact-heading">
-
         <div class="contact-container">
-    
             <div class="contact-info">
-
-                <span class="section-badge">
-                    CONTACT
-                </span>
-            
-                <h2 id="contact-heading">
-                    Let's Secure Your Business
-                </h2>
-            
+                <span class="section-badge">CONTACT</span>
+                <h2 id="contact-heading">let's secure your business</h2>
                 <p class="contact-description">
-                    Whether you're a startup, SME, agency, or educational institution,
-                    Ghost Breach Security helps identify security risks, strengthen web
-                    applications, and improve your overall security posture with
-                    affordable cybersecurity solutions.
+                    Startup, SME, agency or school — Ghostbreachh finds your risks, hardens your
+                    apps and lifts your security posture with affordable, no-nonsense engagements.
                 </p>
-            
                 <ul class="contact-list">
-            
                     <li>🛡️ Security Assessments</li>
-            
                     <li>🔍 Vulnerability Assessments</li>
-            
                     <li>⚡ Penetration Testing</li>
-            
                     <li>🌐 WordPress Security</li>
-            
                 </ul>
-            
+                <p class="contact-direct">
+                    or email us directly:
+                    <a href="mailto:ghostbreachh@gmail.com">ghostbreachh@gmail.com</a>
+                </p>
             </div>
-    
-            <form
-                id="contactForm"
-                class="glass-form"
-                novalidate>
-    
+
+            <form id="contactForm" class="glass-form" novalidate>
                 <div class="form-group">
-    
-                    <label for="name">
-                        Full Name
-                    </label>
-    
-                    <input
-                        id="name"
-                        name="name"
-                        type="text"
-                        autocomplete="name"
-                        required>
-    
+                    <label for="name">Full Name</label>
+                    <input id="name" name="name" type="text" autocomplete="name" required>
                     <small class="error"></small>
-    
                 </div>
-    
+
                 <div class="form-group">
-    
-                    <label for="email">
-                        Email Address
-                    </label>
-    
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        autocomplete="email"
-                        required>
-    
+                    <label for="email">Email Address</label>
+                    <input id="email" name="email" type="email" autocomplete="email" required>
                     <small class="error"></small>
-    
                 </div>
-    
+
                 <div class="form-group">
-    
-                    <label for="company">
-                        Company
-                    </label>
-    
-                    <input
-                        id="company"
-                        name="company"
-                        type="text"
-                        autocomplete="organization">
-    
+                    <label for="company">Company</label>
+                    <input id="company" name="company" type="text" autocomplete="organization">
                 </div>
-    
+
                 <div class="form-group">
-    
-                    <label for="service">
-                        Service Needed
-                    </label>
-    
-                    <select
-                        id="service"
-                        name="service"
-                        required>
-    
-                        <option value="">
-                            Select a Service
-                        </option>
-    
-                        <option>
-                            Web Security Assessment
-                        </option>
-    
-                        <option>
-                            Penetration Testing
-                        </option>
-    
-                        <option>
-                            Vulnerability Assessment
-                        </option>
-    
-                        <option>
-                            WordPress Security
-                        </option>
-    
-                        <option>
-                            Security Consulting
-                        </option>
-    
+                    <label for="service">Service Needed</label>
+                    <select id="service" name="service" required>
+                        <option value="">Select a Service</option>
+                        <option>Web Security Assessment</option>
+                        <option>Penetration Testing</option>
+                        <option>Vulnerability Assessment</option>
+                        <option>WordPress Security</option>
+                        <option>Security Consulting</option>
                     </select>
-    
                     <small class="error"></small>
-    
                 </div>
-    
+
                 <div class="form-group">
-    
-                    <label for="message">
-                        Project Details
-                    </label>
-    
-                    <textarea
-                        id="message"
-                        name="message"
-                        rows="6"
-                        required></textarea>
-    
+                    <label for="message">Project Details</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
                     <small class="error"></small>
-    
                 </div>
-    
-                <button
-        type="submit"
-        class="btn-primary submit-btn">
 
-        Send Inquiry
-
-    </button>
-    
-                <div
-    id="formStatus"
-    aria-live="polite"></div>
-
-</form>
-
-<!-- Contact Cards -->
-
-<div class="contact-cards">
-
-    <article class="glass-card contact-card">
-
-        <div class="contact-icon">✉</div>
-
-        <div class="contact-text">
-
-            <h3>Email</h3>
-
-            <p>ghostbreachh@gmail.com</p>
-
+                <button type="submit" class="btn-primary submit-btn">Send Inquiry</button>
+                <div id="formStatus" aria-live="polite"></div>
+            </form>
         </div>
+    </section>
 
-    </article>
-
-    <article class="glass-card contact-card">
-
-        <div class="contact-icon">🛡️</div>
-
-        <div class="contact-text">
-
-            <h3>Services</h3>
-
-            <p>Startups • SMEs • Agencies</p>
-
+    <!-- ============ FOOTER ============ -->
+    <!-- Giant cut-off wordmark = the "scale/dominance" move borrowed from Hermes -->
+    <footer>
+        <div class="footer-wordmark" aria-hidden="true">GHOSTBREACH</div>
+        <div class="footer-meta">
+            <span>© 2026 Ghostbreachh</span>
+            <span class="footer-sep">•</span>
+            <a href="mailto:ghostbreachh@gmail.com">ghostbreachh@gmail.com</a>
+            <span class="footer-sep">•</span>
+            <span>LEARN • SECURE • DEFEND</span>
         </div>
-
-    </article>
-
-    <article class="glass-card contact-card">
-
-        <div class="contact-icon">⚡</div>
-
-        <div class="contact-text">
-
-            <h3>Response</h3>
-
-            <p>Within 24 Hours</p>
-
-        </div>
-
-    </article>
-
-</div>
-
-</div>
-
-</section>
-
-    <footer class="animate-fade">
-        © 2026 Ghost Breach Security.
-        All Rights Reserved.
     </footer>
 
     <script src="script.js"></script>
-
 </body>
 </html>
