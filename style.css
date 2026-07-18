@@ -269,18 +269,6 @@ a{ color:var(--cyan); text-decoration:none; }
 .error{ color:var(--alert); font-family:var(--mono); font-size:.75rem; min-height:1em; }
 #formStatus{ font-family:var(--mono); font-size:.85rem; color:var(--cyan); min-height:1.2em; }
 
-/* ============ GIANT DIVIDER WORDMARK ============ */
-/* Reuse the footer "fire" gradient as a full-bleed section break between the
-   hero and the body — same vibe, different placement. */
-.divider-wordmark{
-    text-align:center; overflow:hidden; padding:10px 0 4px;
-    font-family:var(--mono); font-weight:800; line-height:.8;
-    font-size:clamp(2.4rem, 13vw, 11rem);
-    background:linear-gradient(120deg, rgba(0,240,255,.45), rgba(157,0,255,.55));
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    letter-spacing:-.02em; user-select:none; white-space:nowrap;
-}
-
 /* ============ FOOTER ============ */
 footer{ text-align:center; padding:40px 20px 60px; overflow:hidden; }
 .footer-wordmark{
@@ -350,7 +338,4 @@ footer{ text-align:center; padding:40px 20px 60px; overflow:hidden; }
     .terminal-body{ font-size:.72rem; }
     .glass-form{ padding:20px; }
     .footer-wordmark{ font-size:clamp(2.4rem,18vw,6rem); }
-    /* "BREACH" is one unbreakable word (white-space:nowrap) so on phones the
-       vw-based size must stay small enough to fit ~6 chars in 390px. */
-    .divider-wordmark{ font-size:13vw; letter-spacing:-.04em; }
 }
