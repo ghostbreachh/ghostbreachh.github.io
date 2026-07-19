@@ -133,6 +133,10 @@ a{ color:var(--cyan); text-decoration:none; }
 .c-out{ color:var(--muted); }
 .cursor{ display:inline-block; width:8px; background:var(--cyan); animation:blink 1s steps(1) infinite; }
 
+.hero-art{
+    position:relative; overflow:hidden; border-radius:16px;
+    transform-style:preserve-3d; transition:transform .35s ease; will-change:transform;
+}
 .hero-art img{
     width:100%; height:auto; border-radius:16px;
     border:1px solid var(--border);

@@ -52,18 +52,21 @@ const counterObserver = new IntersectionObserver((entries) => {
 
 counters.forEach(c => counterObserver.observe(c));
 
-/* ---------- 3D tilt on cards (fine pointers only) ---------- */
+/* ---------- 3D tilt on cards + hero banner (fine pointers only) ---------- */
 if (window.matchMedia("(pointer:fine)").matches) {
-    document.querySelectorAll(".tilt-card").forEach(card => {
+    document.querySelectorAll(".tilt-card, .tilt-banner").forEach(card => {
         const glare = card.querySelector(".card-glare");
+        // Banner is large, so tilt it gentler than the small cards.
+        const sens = card.classList.contains("tilt-banner") ? 22 : 12;
+        const scale = card.classList.contains("tilt-banner") ? 1.015 : 1.03;
         card.addEventListener("mousemove", (e) => {
             const r = card.getBoundingClientRect();
             const x = e.clientX - r.left;
             const y = e.clientY - r.top;
-            const rx = -(y - r.height / 2) / 12;
-            const ry =  (x - r.width  / 2) / 12;
+            const rx = -(y - r.height / 2) / sens;
+            const ry =  (x - r.width  / 2) / sens;
             card.style.transform =
-                `perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.03,1.03,1.03)`;
+                `perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(${scale},${scale},${scale})`;
             if (glare) {
                 glare.style.background =
                     `radial-gradient(circle at ${x/r.width*100}% ${y/r.height*100}%, rgba(255,255,255,.22), transparent 55%)`;

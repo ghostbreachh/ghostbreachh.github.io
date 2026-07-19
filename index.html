@@ -110,10 +110,12 @@
                 </div>
             </div>
 
-            <!-- RIGHT: your banner art (now a 115KB WebP, loads fast) -->
-            <div class="hero-art">
+            <!-- RIGHT: your banner art (now a 115KB WebP, loads fast). Tilt + glare
+                 mirror the cards so the whole hero shares one motion language. -->
+            <div class="hero-art tilt-banner">
                 <img src="assets/banner.webp" alt="Ghostbreachh banner" width="1200" height="675"
                     decoding="async" fetchpriority="high">
+                <div class="card-glare banner-glare" aria-hidden="true"></div>
             </div>
         </div>
     </section>
@@ -199,9 +201,9 @@
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
                     <div class="card-icon">⚠️</div>
-                    <h3>Vulnerability Management</h3>
+                    <h3>Threat &amp; Vuln Triage</h3>
                     <p>Prioritized findings ranked by real business risk — not a 200-page dump of noise.</p>
-                    <span class="card-tag">Assessment</span>
+                    <span class="card-tag">Triage</span>
                 </div>
                 <div class="card-glare" aria-hidden="true"></div>
             </article>
@@ -239,7 +241,7 @@
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
                     <div class="card-icon">💥</div>
-                    <h3>Web Exploitation</h3>
+                    <h3>Web App Exploitation</h3>
                     <p>Injection, auth bypass and business-logic abuse — found and proven safely.</p>
                     <span class="card-tag">Exploit</span>
                 </div>
@@ -442,10 +444,10 @@
 
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
-                    <div class="card-icon">🛠️</div>
-                    <h3>Custom Tooling</h3>
-                    <p>Need a tool that doesn't exist yet? We build offensive and defensive scripts and utilities tailored to your stack.</p>
-                    <span class="card-tag">Build</span>
+                    <div class="card-icon">🔌</div>
+                    <h3>Cloud &amp; API Security</h3>
+                    <p>We assess cloud configs and APIs for broken auth, excessive exposure and business-logic flaws scattered across modern stacks.</p>
+                    <span class="card-tag">Cloud/API</span>
                 </div>
                 <div class="card-glare" aria-hidden="true"></div>
             </article>
