@@ -17,7 +17,7 @@
 
     <!-- SEO: description is what search engines + link previews show -->
     <meta name="description"
-        content="Ghostbreachh is a Pakistani offensive-security collective. Bug bounty, web app security, penetration testing and WordPress hardening for startups and SMEs.">
+        content="Ghostbreachh is an independent offensive-security collective. Bug bounty, web app security, penetration testing and WordPress hardening for startups and SMEs.">
 
     <meta name="keywords"
         content="cybersecurity, bug bounty, penetration testing, vulnerability assessment, OWASP, WordPress security, ethical hacking">
@@ -68,7 +68,10 @@
                 <li><a href="#about">~/about</a></li>
                 <li><a href="#skills">~/stack</a></li>
                 <li><a href="#services">~/services</a></li>
+                <li><a href="#why">~/why-us</a></li>
                 <li><a href="#work">~/work</a></li>
+                <li><a href="#more">~/more</a></li>
+                <li><a href="#process">~/process</a></li>
                 <li><a href="#contact">~/contact</a></li>
             </ul>
 
@@ -95,9 +98,9 @@
                         <span class="terminal-title">ghost@breach: ~</span>
                     </div>
                     <pre class="terminal-body"><span class="c-prompt">$</span> whoami
-<span class="c-out">ghostbreachh — a crew of 10 breaking into security, ethically.</span>
+<span class="c-out">ghostbreachh — a crew breaking into security, ethically.</span>
 <span class="c-prompt">$</span> cat mission.txt
-<span class="c-out">Enterprise-grade security, made accessible to startups &amp; SMEs.</span>
+<span class="c-out">A breach costs more than money — it costs the trust your clients gave you. We find the holes before someone else does, then stay until they're closed.</span>
 <span class="c-prompt">$</span> <span class="cursor">_</span></pre>
                 </div>
 
@@ -123,12 +126,12 @@
         <div class="about-grid reveal">
             <div class="glass-card">
                 <p>
-                    Ghostbreachh is an independent offensive-security collective founded and led by
-                    a team of Pakistani researchers. We help startups, SMEs, agencies and growing
-                    businesses improve their security posture through affordable vulnerability
-                    assessments, penetration testing, WordPress hardening and security consulting.
-                    Our mission is to make enterprise-level security accessible to organizations of
-                    every size — and to train the next generation of defenders while we do it.
+                    Ghostbreachh is an independent offensive-security collective. We help startups,
+                    SMEs, agencies and growing businesses improve their security posture through
+                    affordable vulnerability assessments, penetration testing, WordPress hardening
+                    and security consulting. Our mission is to make serious security accessible to
+                    organizations of every size — and to train the next generation of defenders
+                    while we do it.
                 </p>
             </div>
         </div>
@@ -139,16 +142,26 @@
         <p class="section-kicker">/* ~/stack */</p>
         <h2 class="section-title reveal">our stack</h2>
         <p class="section-description reveal">
-            The tools and techniques we use to test, break and harden your systems.
+            A snapshot of the tooling and techniques we use to test, break and harden your systems.
         </p>
 
         <div class="grid">
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
                     <div class="card-icon">🛡️</div>
-                    <h3>Web Security</h3>
-                    <p>Harden web apps against OWASP Top 10, auth flaws and common attack vectors.</p>
+                    <h3>OWASP Top 10</h3>
+                    <p>Web-app testing mapped to the OWASP Top 10 — the standard buyers and auditors actually ask about.</p>
                     <span class="card-tag">OWASP</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">🎯</div>
+                    <h3>Red Teaming</h3>
+                    <p>Adversary-style engagements that test how far a real attacker could get — quietly, on scope.</p>
+                    <span class="card-tag">Red Team</span>
                 </div>
                 <div class="card-glare" aria-hidden="true"></div>
             </article>
@@ -156,29 +169,9 @@
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
                     <div class="card-icon">🔍</div>
-                    <h3>Penetration Testing</h3>
-                    <p>Authorized engagements to uncover exploitable weaknesses before attackers do.</p>
-                    <span class="card-tag">VAPT</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">⚠️</div>
-                    <h3>Vulnerability Assessment</h3>
-                    <p>Comprehensive scans with prioritized, actionable remediation guidance.</p>
-                    <span class="card-tag">Assessment</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">📋</div>
-                    <h3>OWASP Top 10</h3>
-                    <p>Apply OWASP standards to find and reduce critical web-app risks.</p>
-                    <span class="card-tag">OWASP</span>
+                    <h3>Manual Hunting</h3>
+                    <p>Scanners miss what hands find. We hunt logic flaws and auth gaps line by line.</p>
+                    <span class="card-tag">Manual</span>
                 </div>
                 <div class="card-glare" aria-hidden="true"></div>
             </article>
@@ -195,10 +188,40 @@
 
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
-                    <div class="card-icon">🌐</div>
-                    <h3>Nmap</h3>
-                    <p>Asset discovery, exposed-service identification, infra assessments.</p>
-                    <span class="card-tag">Network</span>
+                    <div class="card-icon">📡</div>
+                    <h3>Recon &amp; OSINT</h3>
+                    <p>External attack-surface mapping, subdomain enum and exposure discovery.</p>
+                    <span class="card-tag">Recon</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">⚠️</div>
+                    <h3>Vulnerability Management</h3>
+                    <p>Prioritized findings ranked by real business risk — not a 200-page dump of noise.</p>
+                    <span class="card-tag">Assessment</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">🧬</div>
+                    <h3>Malware Analysis / RE</h3>
+                    <p>We take apart malware and protocols to understand attackers from the inside.</p>
+                    <span class="card-tag">RE</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">🛠️</div>
+                    <h3>Custom Tooling</h3>
+                    <p>Offensive and defensive scripts built for your stack when off-the-shelf won't cut it.</p>
+                    <span class="card-tag">Build</span>
                 </div>
                 <div class="card-glare" aria-hidden="true"></div>
             </article>
@@ -206,8 +229,8 @@
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
                     <div class="card-icon">🐧</div>
-                    <h3>Linux Security</h3>
-                    <p>Secure configuration, privilege management and system hardening.</p>
+                    <h3>Linux &amp; Network Hardening</h3>
+                    <p>Secure config, privilege management and system hardening.</p>
                     <span class="card-tag">Linux</span>
                 </div>
                 <div class="card-glare" aria-hidden="true"></div>
@@ -215,40 +238,10 @@
 
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
-                    <div class="card-icon">🔒</div>
-                    <h3>WordPress Security</h3>
-                    <p>Malware scanning, plugin review, hardening and monitoring.</p>
-                    <span class="card-tag">CMS</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">💻</div>
-                    <h3>JavaScript</h3>
-                    <p>Secure, fast, interactive front-ends with modern JS.</p>
-                    <span class="card-tag">Frontend</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">⚙️</div>
-                    <h3>PHP</h3>
-                    <p>Secure backend logic: validation, auth, safe coding.</p>
-                    <span class="card-tag">Backend</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">🐍</div>
-                    <h3>Python</h3>
-                    <p>Recon automation, tooling and exploit scripting.</p>
-                    <span class="card-tag">Automation</span>
+                    <div class="card-icon">💥</div>
+                    <h3>Web Exploitation</h3>
+                    <p>Injection, auth bypass and business-logic abuse — found and proven safely.</p>
+                    <span class="card-tag">Exploit</span>
                 </div>
                 <div class="card-glare" aria-hidden="true"></div>
             </article>
@@ -319,7 +312,7 @@
         <div class="grid stats-grid">
             <div class="glass-card reveal">
                 <h3 data-counter="10">0</h3>
-                <p>Security Projects</p>
+                <p>Projects &amp; Labs</p>
             </div>
             <div class="glass-card reveal">
                 <h3 data-counter="30">0</h3>
@@ -336,6 +329,53 @@
         </div>
     </section>
 
+    <!-- ============ WHY US ============ -->
+    <section class="section" id="why">
+        <p class="section-kicker">/* ~/why-us */</p>
+        <h2 class="section-title reveal">why teams choose us</h2>
+        <p class="section-description reveal">
+            Big firms find your flaws, hand you a PDF, and leave. We're built differently.
+        </p>
+
+        <div class="grid">
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>We stay</h3>
+                    <p>Most vendors vanish after the report. We run a phased model: a setup engagement, then monthly check-ins and a free pentest every six months. Security isn't a one-time fix — we treat it like the ongoing thing it is.</p>
+                    <span class="card-tag">Continuity</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>We're human</h3>
+                    <p>No sales decks, no gatekeepers, no 40-page quotes in jargon. You talk to the people doing the work. We listen first, then explain in plain English.</p>
+                    <span class="card-tag">Approachable</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>We're certified &amp; relentless</h3>
+                    <p>100+ hands-on labs cleared, industry certifications, and a team that does red-teaming, OWASP Top 10 manual hunting, and reverse-engineers real malware to understand attackers from the inside.</p>
+                    <span class="card-tag">Capability</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <h3>We teach</h3>
+                    <p>Security shouldn't be a mystery you pay to never understand. We offer mentoring and "ask-us-anything" sessions — paid, no fluff — so your team gets sharper, not dependent.</p>
+                    <span class="card-tag">Mentoring</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+        </div>
+    </section>
+
     <!-- ============ WORK / PROJECTS ============ -->
     <section class="section" id="work">
         <p class="section-kicker">/* ~/work */</p>
@@ -348,27 +388,135 @@
         <div class="grid">
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
-                    <h3>Security Audit Lab</h3>
-                    <p>Controlled environment for OWASP Top 10 analysis, secure-coding practice and
-                        web pentesting with Burp Suite, OWASP ZAP and manual techniques.</p>
+                    <h3>Aegis Logistics — simulated breach</h3>
+                    <p>A full simulated breach of a fictional logistics company: external recon,
+                        lateral movement, privilege escalation and a clean remediation path — built
+                        end-to-end as a public case study. This is exactly how we'd map your environment.</p>
+                    <span class="card-tag"><a href="https://github.com/ghostbreachh" target="_blank" rel="noopener">view on GitHub ↗</a></span>
                 </div>
                 <div class="card-glare" aria-hidden="true"></div>
             </article>
 
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
-                    <h3>Recon Automation</h3>
-                    <p>Python recon toolkit: subdomain enum, DNS analysis, HTTP fingerprinting and
-                        tech detection to accelerate engagements.</p>
+                    <h3>SQL injection → admin takeover</h3>
+                    <p>During authorized recon of an exposed admin surface, we identified a SQL
+                        injection flaw and demonstrated privilege escalation to the dashboard — then
+                        wrote the fix. Proof we go past the scanner and actually exploit, safely, on scope.</p>
+                    <span class="card-tag">Case Study</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+        </div>
+
+        <p class="section-description reveal" style="margin-top:36px;">
+            Credibility at a glance:
+        </p>
+        <ul class="contact-list" style="justify-content:center;margin-top:10px;">
+            <li>🧪 100+ labs cleared (TryHackMe &amp; more)</li>
+            <li>🎓 Industry certifications</li>
+            <li>🎯 Red teaming &amp; OWASP Top 10 manual hunting</li>
+            <li>🧬 Custom offensive tooling &amp; malware analysis</li>
+            <li>💻 Open-source on GitHub</li>
+        </ul>
+    </section>
+
+    <!-- ============ ALSO AVAILABLE ============ -->
+    <section class="section" id="more">
+        <p class="section-kicker">/* ~/more */</p>
+        <h2 class="section-title reveal">also available</h2>
+        <p class="section-description reveal">
+            Beyond the core engagements, we offer specialized work — the kind bigger firms either can't or won't do.
+        </p>
+
+        <div class="grid">
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">🧬</div>
+                    <h3>Reverse Engineering</h3>
+                    <p>We take apart binaries, malware and protocols to understand exactly how they work — and how they break.</p>
+                    <span class="card-tag">RE</span>
                 </div>
                 <div class="card-glare" aria-hidden="true"></div>
             </article>
 
             <article class="tilt-card reveal" tabindex="0">
                 <div class="card-content">
-                    <h3>HTB Learning Labs</h3>
-                    <p>Documented walkthroughs: privilege escalation, web exploitation, Active
-                        Directory, Linux/Windows security and post-exploitation.</p>
+                    <div class="card-icon">🛠️</div>
+                    <h3>Custom Tooling</h3>
+                    <p>Need a tool that doesn't exist yet? We build offensive and defensive scripts and utilities tailored to your stack.</p>
+                    <span class="card-tag">Build</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">📝</div>
+                    <h3>Code Review</h3>
+                    <p>We read your source line by line to catch logic flaws, auth gaps and injection points scanners never see. Secure by review, not just by test.</p>
+                    <span class="card-tag">Review</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">🎓</div>
+                    <h3>Mentoring &amp; "Ask Us Anything"</h3>
+                    <p>Paid, no-fluff sessions. Learn the how, not just the what. We'd rather your team get sharper than keep you dependent.</p>
+                    <span class="card-tag">Teach</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ============ PROCESS ============ -->
+    <section class="section" id="process">
+        <p class="section-kicker">/* ~/process */</p>
+        <h2 class="section-title reveal">how we work</h2>
+        <p class="section-description reveal">
+            A calm, predictable path — no mystery, no jargon.
+        </p>
+
+        <div class="grid">
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">1️⃣</div>
+                    <h3>Scope</h3>
+                    <p>You tell us what's in scope. We price it together based on attack surface and effort. No surprises.</p>
+                    <span class="card-tag">Step 01</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">2️⃣</div>
+                    <h3>Test</h3>
+                    <p>Recon, then careful, authorized testing. We find the maximum we can, safely.</p>
+                    <span class="card-tag">Step 02</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">3️⃣</div>
+                    <h3>Report</h3>
+                    <p>A clean, intuitive report: executive summary, how we found what (with proof-of-concept), and plain remediation steps.</p>
+                    <span class="card-tag">Step 03</span>
+                </div>
+                <div class="card-glare" aria-hidden="true"></div>
+            </article>
+
+            <article class="tilt-card reveal" tabindex="0">
+                <div class="card-content">
+                    <div class="card-icon">4️⃣</div>
+                    <h3>Ongoing</h3>
+                    <p>Monthly check-ins and advisory, plus a free pentest every six months — because threats don't stop.</p>
+                    <span class="card-tag">Step 04</span>
                 </div>
                 <div class="card-glare" aria-hidden="true"></div>
             </article>
@@ -398,6 +546,13 @@
                     <li>🌐 WordPress Security</li>
                     <li>💡 Security Consulting</li>
                 </ul>
+
+                <p class="contact-description" style="margin-top:22px;">
+                    Not sure what you need? Just talk to us. We'll listen, tell you straight, and
+                    help where we can — whether that's a full pentest or a quick look at your
+                    current posture. You can rest easy knowing we'll do our best to find everything
+                    that's there.
+                </p>
 
                 <!-- Terminal wit, part 2: mirrors the hero terminal but here it
                      "sends" the inquiry. Small detail that rewards the curious. -->
@@ -472,6 +627,13 @@
     <!-- Giant cut-off wordmark = the "scale/dominance" move borrowed from Hermes -->
     <footer>
         <div class="footer-wordmark" aria-hidden="true">GHOSTBREACH</div>
+        <div class="footer-socials">
+            <a href="https://github.com/ghostbreachh" target="_blank" rel="noopener">GitHub</a>
+            <span class="footer-sep">•</span>
+            <a href="https://youtube.com/@ghostbreachh" target="_blank" rel="noopener">YouTube</a>
+            <span class="footer-sep">•</span>
+            <a href="https://linkedin.com/company/ghostbreachh" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
         <div class="footer-meta">
             <span>© 2026 Ghostbreachh</span>
             <span class="footer-sep">•</span>

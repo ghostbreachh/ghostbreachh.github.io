@@ -273,11 +273,17 @@ a{ color:var(--cyan); text-decoration:none; }
 footer{ text-align:center; padding:40px 20px 60px; overflow:hidden; }
 .footer-wordmark{
     font-family:var(--mono); font-weight:800; line-height:.8;
-    font-size:clamp(3rem, 16vw, 13rem);
+    /* 10 chars nowrap — keep vw small enough that the final 'H' never clips. */
+    font-size:clamp(2.6rem, 13vw, 13rem);
     background:linear-gradient(120deg, rgba(157,0,255,.5), rgba(0,240,255,.5));
     -webkit-background-clip:text; background-clip:text; color:transparent;
     letter-spacing:-.02em; user-select:none; white-space:nowrap;
 }
+.footer-socials{
+    font-family:var(--mono); font-size:.85rem; margin-top:18px;
+}
+.footer-socials a{ color:var(--cyan); }
+.footer-socials .footer-sep{ margin:0 8px; opacity:.5; }
 /* Solid strip behind the meta line so the small text always reads cleanly,
    even over the giant gradient wordmark behind it. */
 .footer-meta{
