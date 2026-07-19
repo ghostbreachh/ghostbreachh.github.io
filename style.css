@@ -198,6 +198,11 @@ a{ color:var(--cyan); text-decoration:none; }
 
 /* ============ GRIDS ============ */
 .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px; }
+/* Balanced 4-up: 4 across on desktop, 2x2 on tablet, 1 on phone.
+   Avoids the lonely 3+1 wrap on 4-card sections at wide widths. */
+.grid--4{ grid-template-columns:repeat(4,1fr); }
+@media (max-width:1024px){ .grid--4{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:480px){ .grid--4{ grid-template-columns:1fr; } }
 .stats-grid{ margin-top:20px; }
 .stats-grid h3{
     font-family:var(--mono); font-size:2.4rem; font-weight:800;
