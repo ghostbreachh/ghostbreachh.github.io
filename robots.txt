@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://ghostbreachh.github.io/sitemap.xml

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Reference Build &amp; Deliverable Samples | Ghost Breach</title>
+<link rel="stylesheet" href="samples.css"></head><body><main>
+<div class="masthead"><p>GHOST BREACH / DOCUMENTATION SAMPLES</p>
+<h1>Evidence. Remediation. Reproducibility.</h1>
+<p class="intro">An illustrative security finding and a reference ESP32-E / MAX98357A build excerpt. Client identifiers are omitted.</p>
+<p class="nav"><a href="index.html#deliverables">← Back to the website</a> · Use your browser’s Print menu to print or save as PDF.</p></div>
+<section id="deliverables" class="section section-alt"><div class="container">
+ <div class="section-header">
+<span class="section-tag">04 / SAMPLE HANDOFF</span><h2 class="section-title">See what useful documentation looks like.</h2>
+<p class="section-subtitle">An illustrative security finding and a reference ESP32-E / MAX98357A build excerpt, with client identifiers omitted.</p>
+ 
+</div>
+ <div class="deliverable-preview" id="deliv-pentest"><div class="blueprint-window">
+<div class="blueprint-topbar">
+<span class="mono-label text-violet">ILLUSTRATIVE SECURITY FINDING</span><span class="status-chip chip-security">Tenant isolation</span>
+</div>
+<div class="blueprint-grid">
+  <div class="blueprint-col">
+<h3>1. Explain the finding</h3>
+<p class="blueprint-note">An authenticated request can access a record belonging to a different tenant because the lookup omits tenant ownership.</p>
+<div class="attack-chain-flow">
+   <div class="chain-node">
+<span class="node-step">CONTEXT</span><div>
+<strong>Authenticated account in tenant A</strong><span>The caller is signed in; the record belongs to tenant B.</span>
+</div>
+</div>
+<div class="chain-arrow" aria-hidden="true">↓</div>
+   <div class="chain-node">
+<span class="node-step">CAUSE</span><div>
+<strong>Lookup uses only the record ID</strong><span>The data query lacks the authenticated tenant boundary.</span>
+</div>
+</div>
+<div class="chain-arrow" aria-hidden="true">↓</div>
+   <div class="chain-node node-critical">
+<span class="node-step">IMPACT</span><div>
+<strong>Unauthorized cross-tenant read</strong><span>Record the exposed fields and affected scope before assigning severity.</span>
+</div>
+</div>
+  </div>
+</div>
+  <div class="blueprint-col">
+<h3>2. Connect the fix to the cause</h3>
+<p class="blueprint-note">Illustrative handler fragment. Trusted authentication middleware supplies the tenant; application-specific role and object permissions still apply.</p>
+<pre class="code-preview" tabindex="0" role="region" aria-label="Illustrative tenant-scoped query; scroll horizontally to read"><code>// Scope the record to the authenticated tenant.
+const record = await db.records.findFirst({
+  where: {
+    id: req.params.id,
+    tenantId: req.auth.tenantId
+  }
+});
+if (!record) return res.sendStatus(404);
+return res.json(toPublicRecord(record));</code></pre>
+<p class="blueprint-note">Retest: allowed tenant, different tenant, unauthenticated caller, and every route or method that exposes the record.</p>
+<div class="blueprint-footer-badges">
+<span class="tech-tag">Scope &amp; evidence</span><span class="tech-tag">Remediation</span><span class="tech-tag">Regression checks</span>
+</div>
+</div>
+ </div>
+</div></div>
+ <div class="deliverable-preview" id="deliv-hardware"><div class="blueprint-window">
+<div class="blueprint-topbar">
+<span class="mono-label text-cyan">REFERENCE ESP32-E / MAX98357A BUILD EXCERPT</span><span class="status-chip chip-hardware">Firmware + BOM + pinout</span>
+</div>
+<div class="blueprint-grid">
+  <div class="blueprint-col">
+<h3>1. Reference pinout &amp; audio hardware</h3>
+<p class="blueprint-note">ESP32-E with dual MAX98357A amplifiers and RT9080 regulation. GPIO mappings below are from the supplied build excerpt.</p>
+<p class="scroll-hint">Scroll to inspect every pin and harness column →</p>
+<div class="mini-table-wrap" tabindex="0" role="region" aria-label="Reference ESP32-E pinout; scroll horizontally for all columns"><table class="blueprint-table">
+<caption>Reference ESP32-E / MAX98357A signal routing</caption>
+<thead><tr>
+<th scope="col">Component</th>
+<th scope="col">Signal</th>
+<th scope="col">MCU pin</th>
+<th scope="col">Harness / note</th>
+</tr></thead>
+<tbody>
+<tr>
+<th scope="row">MAX98357A #1 / #2</th>
+<td>I2S LRC / word select</td>
+<td><code>GPIO 26</code></td>
+<td>Yellow · 22 AWG</td>
+</tr>
+<tr>
+<th scope="row">MAX98357A #1 / #2</th>
+<td>I2S BCLK / bit clock</td>
+<td><code>GPIO 25</code></td>
+<td>Blue · 22 AWG</td>
+</tr>
+<tr>
+<th scope="row">MAX98357A #1 / #2</th>
+<td>I2S DIN / audio data</td>
+<td>Firmware-selected</td>
+<td>Match <code>data_out_num</code> to the schematic</td>
+</tr>
+<tr>
+<th scope="row">MAX98357A #1 / #2</th>
+<td>SD / MODE control</td>
+<td><code>GPIO 14</code></td>
+<td>Orange · check boot/reset mute state</td>
+</tr>
+<tr>
+<th scope="row">Wake switch</th>
+<td>RTC deep-sleep wake</td>
+<td><code>GPIO 27</code></td>
+<td>Brown · verify wake behavior</td>
+</tr>
+</tbody>
+</table></div>
+<p class="reference-note">The source excerpt does not specify DIN’s GPIO. Use the matching firmware and schematic for that assignment.</p>
+</div>
+  <div class="blueprint-col">
+<h3>2. Native C firmware &amp; offline flashing</h3>
+<p class="blueprint-note">The reference package pairs ESP-IDF C source with Windows/macOS/Linux flashing instructions and a bill of materials.</p>
+<pre class="code-preview" tabindex="0" role="region" aria-label="Reference ESP32 flashing command; scroll horizontally to read"><code>#!/usr/bin/env bash
+# Reference ESP32 build; legacy esptool 4.x syntax
+set -euo pipefail
+: "${PORT:?Set PORT to the connected ESP32 serial port}"
+esptool.py --chip esp32 --port "$PORT" --baud 921600 write_flash -z \
+  0x1000 bootloader.bin \
+  0x8000 partition-table.bin \
+  0x10000 stadium_blueprint_prod.bin</code></pre>
+<p class="blueprint-note">Offsets shown are for this ESP32 reference layout. Match the build’s generated flash arguments when using other images or boards.</p>
+<div class="blueprint-footer-badges">
+<span class="tech-tag">ESP-IDF C</span><span class="tech-tag">MAX98357A × 2</span><span class="tech-tag">RT9080 LDO</span><span class="tech-tag">Bench QA</span>
+</div>
+</div>
+ </div>
+</div></div>
+ 
+</div></section>
+</main></body></html>

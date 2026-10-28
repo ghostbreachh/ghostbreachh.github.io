@@ -1,221 +1,266 @@
-/* ============================================================
-   Ghostbreachh — script.js
-   No frameworks. Everything is throttled so scroll/animation
-   never janks. The particle canvas from the old site was
-   removed: the CSS grid + grain + glow carry the vibe at 0 CPU.
-   ============================================================ */
+/* Ghost Breach — navigation, accessible samples, and an honest local brief builder. */
+(() => {
+  'use strict';
+  const EMAIL = 'ghostbreachh@gmail.com';
+  const MAX_MAILTO_LENGTH = 1800;
 
-/* ---------- Mobile nav toggle ---------- */
-const hamburger = document.getElementById("hamburger");
-const navLinks  = document.getElementById("navLinks");
-
-hamburger.addEventListener("click", () => {
-    const open = navLinks.classList.toggle("active");
-    hamburger.setAttribute("aria-expanded", String(open));
-});
-document.querySelectorAll(".nav-links a").forEach(link => {
-    link.addEventListener("click", () => {
-        navLinks.classList.remove("active");
-        hamburger.setAttribute("aria-expanded", "false");
-    });
-});
-
-/* ---------- Scroll reveal (one observer, reused) ---------- */
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-            revealObserver.unobserve(entry.target); // animate once
-        }
-    });
-}, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
-
-document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
-
-/* ---------- Animated counters ---------- */
-const counters = document.querySelectorAll("[data-counter]");
-const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const target = +el.dataset.counter;
-        let current = 0;
-        const step = Math.max(1, Math.ceil(target / 60));
-        const timer = setInterval(() => {
-            current += step;
-            if (current >= target) { current = target; clearInterval(timer); }
-            el.textContent = current + "+";
-        }, 25);
-        counterObserver.unobserve(el);
-    });
-}, { threshold: 0.4 });
-
-counters.forEach(c => counterObserver.observe(c));
-
-/* ---------- 3D tilt on cards + hero banner (fine pointers only) ---------- */
-if (window.matchMedia("(pointer:fine)").matches) {
-    document.querySelectorAll(".tilt-card, .tilt-banner").forEach(card => {
-        const glare = card.querySelector(".card-glare");
-        // Banner is large, so tilt it gentler than the small cards.
-        const sens = card.classList.contains("tilt-banner") ? 22 : 12;
-        const scale = card.classList.contains("tilt-banner") ? 1.015 : 1.03;
-        card.addEventListener("mousemove", (e) => {
-            const r = card.getBoundingClientRect();
-            const x = e.clientX - r.left;
-            const y = e.clientY - r.top;
-            const rx = -(y - r.height / 2) / sens;
-            const ry =  (x - r.width  / 2) / sens;
-            card.style.transform =
-                `perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(${scale},${scale},${scale})`;
-            if (glare) {
-                glare.style.background =
-                    `radial-gradient(circle at ${x/r.width*100}% ${y/r.height*100}%, rgba(255,255,255,.22), transparent 55%)`;
-            }
-        });
-        card.addEventListener("mouseleave", () => {
-            card.style.transform = "perspective(1200px) rotateX(0) rotateY(0) scale(1)";
-        });
-    });
-}
-
-/* ---------- Shared glare on plain glass cards (about, stats) ----------
-   The CSS gives .glass-card a radial glare on hover; this feeds the
-   pointer position (--mx/--my) so the glow follows the cursor like the
-   tilt cards do — one motion language across the whole site. */
-if (window.matchMedia("(pointer:fine)").matches) {
-    document.querySelectorAll(".glass-card").forEach(card => {
-        card.addEventListener("mousemove", (e) => {
-            const r = card.getBoundingClientRect();
-            card.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");
-            card.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
-        });
-    });
-}
-
-/* ---------- Navbar shrink on scroll (rAF-throttled) ---------- */
-/* TEACHING: scroll fires dozens of times/sec. Running code on every
-   event is wasteful. We set a flag and do the work once per animation
-   frame instead — this is the standard "throttle with rAF" pattern. */
-const navbar = document.querySelector(".navbar");
-let ticking = false;
-function onScroll() {
-    navbar.classList.toggle("scrolled", window.scrollY > 40);
-    ticking = false;
-}
-window.addEventListener("scroll", () => {
-    if (!ticking) {
-        window.requestAnimationFrame(onScroll);
-        ticking = true;
-    }
-}, { passive: true });
-
-/* ---------- Button ripple ---------- */
-document.querySelectorAll(".btn-primary, .btn-secondary").forEach(button => {
-    button.addEventListener("click", function (e) {
-        const rect = this.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const ripple = document.createElement("span");
-        ripple.style.cssText =
-            `position:absolute;width:${size}px;height:${size}px;border-radius:50%;` +
-            `left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;` +
-            `background:rgba(255,255,255,.35);transform:scale(0);transition:transform .5s;pointer-events:none;`;
-        this.style.position = "relative"; this.style.overflow = "hidden";
-        this.appendChild(ripple);
-        requestAnimationFrame(() => ripple.style.transform = "scale(2.5)");
-        setTimeout(() => ripple.remove(), 550);
-    });
-});
-
-/* ---------- Contact form -> real mailto ---------- */
-const form   = document.getElementById("contactForm");
-const status = document.getElementById("formStatus");
-const TO     = "ghostbreachh@gmail.com";
-
-const mailFallback = document.getElementById("mailFallback");
-const mailLink     = document.getElementById("mailLink");
-const copyMail     = document.getElementById("copyMail");
-
-function showError(field, msg) {
-    const err = field.parentElement.querySelector(".error");
-    if (err) err.textContent = msg;
-}
-
-// Build the prefilled mailto string (used by both the auto-open and fallback).
-function buildMailto(name, email, company, service, message) {
-    const subject = encodeURIComponent(`[Ghostbreachh] ${service} — ${name}`);
-    const body = encodeURIComponent(
-        `Name: ${name}\n` +
-        `Email: ${email}\n` +
-        `Company: ${company || "—"}\n` +
-        `Service: ${service}\n\n` +
-        `${message}`
-    );
-    return `mailto:${TO}?subject=${subject}&body=${body}`;
-}
-
-form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    let valid = true;
-    status.textContent = "";
-    mailFallback.hidden = true;
-    document.querySelectorAll(".error").forEach(e => e.textContent = "");
-
-    const name    = document.getElementById("name");
-    const email   = document.getElementById("email");
-    const company = document.getElementById("company");
-    const service = document.getElementById("service");
-    const message = document.getElementById("message");
-
-    if (name.value.trim().length < 2)   { showError(name, "Please enter your full name."); valid = false; }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value.trim())) {
-        showError(email, "Enter a valid email address."); valid = false;
-    }
-    if (service.value === "")           { showError(service, "Please select a service."); valid = false; }
-    if (message.value.trim().length < 20) { showError(message, "Please provide more project details."); valid = false; }
-
-    if (!valid) return;
-
-    const mailto = buildMailto(
-        name.value.trim(), email.value.trim(),
-        company.value.trim(), service.value, message.value.trim()
-    );
-
-    const btn = form.querySelector("button[type=submit]");
-    btn.disabled = true; btn.textContent = "Opening mail…";
-
-    // Open the visitor's mail client. If none is configured (common on phones/
-    // locked-down laptops) the tab stays visible — we detect that and show a
-    // manual fallback so the visitor is NEVER left stuck.
-    const wasHidden = () => document.visibilityState === "hidden";
-    const before = wasHidden();
-    window.location.href = mailto;
-
-    setTimeout(() => {
-        btn.disabled = false; btn.textContent = "Send Inquiry";
-
-        if (!before && !wasHidden()) {
-            // Mail client did NOT take over -> show fallback.
-            mailLink.href = mailto;
-            mailFallback.hidden = false;
-            status.textContent = "We couldn't open your mail app automatically.";
-            form.reset();
-        } else {
-            // Mail client opened (or tab blurred) -> success message.
-            status.textContent = "Your mail app should have opened with a prefilled message. If not, email us directly at ghostbreachh@gmail.com";
-            form.reset();
-        }
-    }, 1200);
-});
-
-// Copy the prefilled draft to clipboard from the fallback.
-copyMail.addEventListener("click", async () => {
-    const href = mailLink.getAttribute("href") || "";
-    const decoded = decodeURIComponent(href.replace(/^mailto:[^?]*\?/, "").replace(/&/g, "\n").replace(/=/g, ": "));
+  async function copyText(text, clipboard) {
     try {
-        await navigator.clipboard.writeText(decoded);
-        copyMail.textContent = "copied ✓";
-        setTimeout(() => copyMail.textContent = "copy email draft", 2000);
-    } catch {
-        copyMail.textContent = "copy failed — select manually";
+      if (!clipboard || typeof clipboard.writeText !== 'function') return false;
+      await clipboard.writeText(text);
+      return true;
+    } catch { return false; }
+  }
+
+  function buildBrief(values) {
+    const clean = Object.fromEntries(Object.entries(values).map(([key, value]) => [key, String(value).trim()]));
+    const subject = `[Ghost Breach Inquiry] ${clean.service} — ${clean.name}`;
+    const body = [
+      `Name / Alias: ${clean.name}`, `Reply Email: ${clean.email}`,
+      `Service: ${clean.service}`, `Timeline: ${clean.timeline || 'Flexible / Exploratory'}`,
+      '', 'Project overview:', clean.message,
+    ].join('\n');
+    const text = `To: ${EMAIL}\nSubject: ${subject}\n\n${body}`;
+    const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    return { text, subject, body, mailto: mailto.length <= MAX_MAILTO_LENGTH ? mailto : null };
+  }
+
+  // Small pure helpers can also be exercised by Node without a browser runtime.
+  if (typeof module !== 'undefined' && module.exports) module.exports = { copyText, buildBrief };
+  if (typeof document === 'undefined') return;
+
+  function init() {
+    const byId = (id) => document.getElementById(id);
+    if (byId('year')) byId('year').textContent = String(new Date().getFullYear());
+
+    const menu = byId('menuToggle');
+    const nav = byId('navLinks');
+    function setMenu(open, restoreFocus = false) {
+      if (!menu || !nav) return;
+      nav.classList.toggle('open', open);
+      menu.setAttribute('aria-expanded', String(open));
+      menu.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      if (restoreFocus) menu.focus();
     }
-});
+    if (menu && nav) {
+      menu.hidden = false;
+      nav.classList.add('enhanced');
+      menu.addEventListener('click', () => setMenu(menu.getAttribute('aria-expanded') !== 'true'));
+      nav.addEventListener('click', (event) => {
+        if (event.target.closest('a')) setMenu(false);
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') setMenu(false, true);
+      });
+      document.addEventListener('pointerdown', (event) => {
+        if (!nav.contains(event.target) && !menu.contains(event.target)) setMenu(false);
+      });
+      document.addEventListener('focusin', (event) => {
+        if (!nav.contains(event.target) && !menu.contains(event.target)) setMenu(false);
+      });
+      window.matchMedia('(min-width: 901px)').addEventListener('change', () => setMenu(false));
+    }
+
+    const tabs = [...document.querySelectorAll('.deliv-tab')];
+    function activateTab(tab, focus = false) {
+      tabs.forEach((item) => {
+        const selected = item === tab;
+        item.classList.toggle('active', selected);
+        item.setAttribute('aria-selected', String(selected));
+        item.tabIndex = selected ? 0 : -1;
+        const panel = byId(item.getAttribute('aria-controls'));
+        if (panel) panel.hidden = !selected;
+      });
+      if (focus) tab.focus();
+    }
+    if (tabs.length) {
+      tabs[0].closest('[role="tablist"]').hidden = false;
+      tabs.forEach((tab, index) => {
+        const panel = byId(tab.getAttribute('aria-controls'));
+        if (panel) {
+          panel.setAttribute('role', 'tabpanel');
+          panel.setAttribute('aria-labelledby', tab.id);
+          panel.tabIndex = 0;
+        }
+        tab.addEventListener('click', () => activateTab(tab));
+        tab.addEventListener('keydown', (event) => {
+          const next = {
+            ArrowRight: (index + 1) % tabs.length,
+            ArrowLeft: (index - 1 + tabs.length) % tabs.length,
+            Home: 0, End: tabs.length - 1,
+          }[event.key];
+          if (next !== undefined) {
+            event.preventDefault();
+            activateTab(tabs[next], true);
+          }
+        });
+      });
+      activateTab(tabs[0]);
+    }
+    document.querySelectorAll('[data-open-deliverable]').forEach((link) => {
+      link.addEventListener('click', () => {
+        const tab = tabs.find((item) => item.dataset.deliv === link.dataset.openDeliverable);
+        if (tab) activateTab(tab);
+      });
+    });
+    byId('printSamplesBtn')?.addEventListener('click', () => {
+      document.body.classList.add('print-samples');
+      window.print();
+    });
+    window.addEventListener('afterprint', () => document.body.classList.remove('print-samples'));
+
+    // These are filters, not tabs: each is a normal toggle button in a named group.
+    const filters = [...document.querySelectorAll('.stack-tab')];
+    if (filters.length) {
+      filters[0].parentElement.hidden = false;
+      filters.forEach((button) => button.addEventListener('click', () => {
+        const value = button.dataset.filter;
+        filters.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle('active', active);
+          item.setAttribute('aria-pressed', String(active));
+        });
+        document.querySelectorAll('.stack-column').forEach((column) => {
+          column.hidden = value !== 'all' && column.dataset.category !== value;
+        });
+        document.querySelector('.stack-pillars')?.classList.toggle('is-filtered', value !== 'all');
+        if (byId('stackStatus')) byId('stackStatus').textContent = `Showing ${button.textContent.trim().toLowerCase()}.`;
+      }));
+    }
+
+    const emailButton = byId('copyEmailBtn');
+    const emailStatus = byId('copyEmailStatus');
+    if (emailButton) {
+      emailButton.hidden = false;
+      emailButton.addEventListener('click', async () => {
+        emailButton.disabled = true;
+        const ok = await copyText(EMAIL, navigator.clipboard);
+        if (emailStatus) emailStatus.textContent = ok ? 'Email address copied.' : 'Copy unavailable. Select the email address above and copy it manually.';
+        emailButton.disabled = false;
+      });
+    }
+
+    const form = byId('contactForm');
+    if (!form) return;
+    form.noValidate = true;
+    byId('formControls').hidden = false;
+    const fields = [...form.querySelectorAll('input, select, textarea')];
+    const feedback = byId('formFeedback');
+    const preview = byId('briefPreview');
+    const textArea = byId('briefText');
+    let currentBrief = null;
+
+    function announce(message, error = false) {
+      feedback.hidden = false;
+      feedback.textContent = message;
+      feedback.classList.toggle('is-error', error);
+    }
+    function validateField(field) {
+      let message = '';
+      if (field.required && !field.value.trim()) {
+        message = { name: 'Enter your name or alias.', email: 'Enter your email address.', service: 'Choose a service.', message: 'Add a short project overview.' }[field.id] || 'Complete this field.';
+      } else if (field.validity.typeMismatch) {
+        message = 'Enter a valid email address, such as name@example.com.';
+      } else if (!field.validity.valid || (field.maxLength > 0 && field.value.length > field.maxLength)) {
+        message = 'Check this field and stay within the character limit.';
+      }
+      const error = byId(`${field.id}Error`);
+      field.setAttribute('aria-invalid', String(Boolean(message)));
+      if (error) { error.textContent = message; error.hidden = !message; }
+      return !message;
+    }
+    function invalidateBrief() {
+      currentBrief = null;
+      preview.hidden = true;
+      textArea.value = '';
+      byId('emailDraftLink').removeAttribute('href');
+      feedback.hidden = true;
+    }
+    fields.forEach((field) => {
+      const changed = () => {
+        invalidateBrief();
+        if (field.getAttribute('aria-invalid') === 'true') validateField(field);
+        if (byId('messageCount')) byId('messageCount').textContent = `${byId('message').value.length} / 5000`;
+      };
+      field.addEventListener('input', changed);
+      field.addEventListener('change', changed);
+    });
+
+    document.querySelectorAll('[data-select-service]').forEach((link) => {
+      link.addEventListener('click', () => {
+        const service = byId('service');
+        if ([...service.options].some((option) => option.value === link.dataset.selectService)) {
+          service.value = link.dataset.selectService;
+          invalidateBrief();
+          validateField(service);
+          announce(`Selected: ${service.value}. Add your details to prepare a brief.`);
+        }
+      });
+    });
+
+    function prepareBrief() {
+      const invalid = fields.filter((field) => !validateField(field));
+      if (invalid.length) {
+        invalidateBrief();
+        announce(`Please correct ${invalid.length === 1 ? 'the highlighted field' : `the ${invalid.length} highlighted fields`}.`, true);
+        invalid[0].focus();
+        return null;
+      }
+      currentBrief = buildBrief(Object.fromEntries(fields.map((field) => [field.name, field.value])));
+      textArea.value = currentBrief.text;
+      preview.hidden = false;
+      const emailLink = byId('emailDraftLink');
+      emailLink.hidden = !currentBrief.mailto;
+      if (currentBrief.mailto) emailLink.href = currentBrief.mailto;
+      byId('longBriefHint').hidden = Boolean(currentBrief.mailto);
+      return currentBrief;
+    }
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (prepareBrief()) {
+        announce('Your brief is ready to review. Nothing has been sent.');
+        byId('briefHeading').focus();
+      }
+    });
+    byId('emailDraftLink').addEventListener('click', () => {
+      announce('Email draft requested. If no app opens, copy or download the brief and use your webmail. This page cannot confirm delivery.');
+    });
+    byId('copyBriefBtn').addEventListener('click', async (event) => {
+      const brief = currentBrief || prepareBrief();
+      if (!brief) return;
+      const button = event.currentTarget;
+      button.disabled = true;
+      const ok = await copyText(brief.text, navigator.clipboard);
+      button.disabled = false;
+      if (brief !== currentBrief) return; // Do not announce stale content after an edit.
+      announce(ok ? 'Brief copied. Paste it into your email and send when ready.' : 'Copy unavailable. The brief is selected below; use your device’s Copy command.', !ok);
+      if (!ok) { textArea.focus(); textArea.select(); }
+    });
+    byId('downloadBriefBtn').addEventListener('click', () => {
+      const brief = currentBrief || prepareBrief();
+      if (!brief) return;
+      try {
+        const url = URL.createObjectURL(new Blob([brief.text], { type: 'text/plain;charset=utf-8' }));
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'ghost-breach-project-brief.txt';
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        announce('Download requested. Attach the text file to an email or paste its contents into webmail.');
+      } catch {
+        announce('Download unavailable. Select and copy the brief below.', true);
+        textArea.focus(); textArea.select();
+      }
+    });
+
+    // Keep advanced information compact on phones; user toggles are never overridden.
+    if (window.matchMedia('(max-width: 600px)').matches) {
+      document.querySelectorAll('details.mobile-collapsible').forEach((details) => { details.open = false; });
+    }
+    byId('intakeFields').disabled = false;
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
+})();

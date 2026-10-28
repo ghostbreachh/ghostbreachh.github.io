@@ -1,0 +1,5 @@
+/*
+  Content-Security-Policy: default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; script-src 'self' https://chatling.ai https://*.chatling.ai; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://chatling.ai https://*.chatling.ai; font-src 'self' data:; connect-src 'self' https://chatling.ai https://*.chatling.ai wss://*.chatling.ai; frame-src https://chatling.ai https://*.chatling.ai
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()

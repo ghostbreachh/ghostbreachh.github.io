@@ -1,629 +1,736 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!--
-      TEACHING NOTE (Umar): This tiny script runs BEFORE the page paints.
-      It tags <html> with a "js" class ONLY when JS is working. We use that
-      class in CSS to hide .reveal elements before they animate in. If JS is
-      disabled/offline, the class is never added and ALL content shows by
-      default (no more "blank page because JS failed" bug from the old site).
-    -->
-    <script>document.documentElement.classList.add('js');</script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Ghostbreachh — Learn • Secure • Defend</title>
-
-    <!-- SEO: description is what search engines + link previews show -->
-    <meta name="description"
-        content="Ghostbreachh is an independent offensive-security collective. Bug bounty, web app security, penetration testing and WordPress hardening for startups and SMEs.">
-
-    <meta name="keywords"
-        content="cybersecurity, bug bounty, penetration testing, vulnerability assessment, OWASP, WordPress security, ethical hacking">
-
-    <!-- theme-color shows under the browser chrome on mobile. Purple = our brand. -->
-    <meta name="theme-color" content="#9d00ff">
-
-    <!-- Favicon (multi-size .ico built from your logo) -->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-    <link rel="apple-touch-icon" href="assets/favicon.ico">
-
-    <!--
-      OG + Twitter cards = how the link looks when shared on LinkedIn / Instagram
-      bio / Twitter. Without og:image the link renders as plain text (old bug).
-      banner.webp is 1200x675 (16:9) which is the ideal social-preview size.
-    -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Ghostbreachh — Learn • Secure • Defend">
-    <meta property="og:description"
-        content="Offensive-security collective. Bug bounty, pentesting and web app security for startups and SMEs.">
-    <meta property="og:image" content="assets/banner.webp">
-    <meta property="og:url" content="https://ghostbreachh.github.io/">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Ghostbreachh — Learn • Secure • Defend">
-    <meta name="twitter:description"
-        content="Offensive-security collective. Bug bounty, pentesting and web app security for startups and SMEs.">
-    <meta name="twitter:image" content="assets/banner.webp">
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#060811">
+<title>Penetration Testing &amp; Embedded Firmware | Ghost Breach</title>
+<meta name="description" content="Independent web and API penetration testing, infrastructure hardening, and embedded firmware engineering. Clear scope, practical fixes, and useful handoffs.">
+<link rel="canonical" href="https://ghostbreachh.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ghost Breach">
+<meta property="og:title" content="Security tested. Hardware engineered. | Ghost Breach">
+<meta property="og:description" content="Penetration testing, infrastructure hardening, and embedded firmware. Evidence and practical engineering handoffs.">
+<meta property="og:url" content="https://ghostbreachh.github.io/">
+<meta property="og:image" content="https://ghostbreachh.github.io/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ghost Breach — penetration testing and embedded engineering.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ghost Breach | Security &amp; embedded engineering">
+<meta name="twitter:description" content="Defined scope. Practical fixes. A useful handoff.">
+<meta name="twitter:image" content="https://ghostbreachh.github.io/assets/social-card.png">
+<meta name="twitter:image:alt" content="Ghost Breach — penetration testing and embedded engineering.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Ghost Breach","url":"https://ghostbreachh.github.io/","email":"ghostbreachh@gmail.com","sameAs":["https://github.com/ghostbreachh"]}</script><script defer src="script.js"></script>
+<script defer src="chatling.js" data-production-chat></script>
 </head>
-
 <body>
-    <div class="cyber-grid" aria-hidden="true"></div>
+  <a class="skip-link" href="#main-content">Skip to content</a><div class="bg-grid" aria-hidden="true"></div>
+  <header class="site-header" id="top">
+    <div class="container nav-container">
+      <a href="#home" class="brand" aria-label="Ghost Breach Home">
+        <span class="brand-prompt">ghost@breach:</span><span class="brand-tilde">~</span><span class="brand-cursor" aria-hidden="true"></span>
+      </a>
 
-    <!-- ============ NAVBAR ============ -->
-    <!--
-      Levente vibe: nav labels use the "~/path" convention so the site reads
-      like a filesystem — instantly signals "this person is a real operator".
-    -->
-    <header>
-        <nav class="navbar">
-            <a class="logo" href="#home" aria-label="Ghostbreachh home">
-                <img src="assets/favicon.ico" alt="" width="28" height="28" class="logo-mark">
-                <span>ghostbreachh</span>
-            </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false" aria-controls="navLinks" hidden="" type="button">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
 
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#about">~/about</a></li>
-                <li><a href="#skills">~/stack</a></li>
-                <li><a href="#services">~/services</a></li>
-                <li><a href="#why">~/why-us</a></li>
-                <li><a href="#work">~/work</a></li>
-                <li><a href="#more">~/more</a></li>
-                <li><a href="#process">~/process</a></li>
-                <li><a href="#contact">~/contact</a></li>
+      <nav class="nav-links" id="navLinks" aria-label="Primary Navigation"><a href="#services" class="nav-link" aria-label="Services">~/services</a><a href="#benchmarks" class="nav-link" aria-label="Architecture and benchmarks">~/architecture</a><a href="#work" class="nav-link" aria-label="Selected work">~/work</a><a href="#deliverables" class="nav-link" aria-label="Sample deliverables">~/deliverables</a><a href="#stack" class="nav-link" aria-label="Technical stack">~/stack</a><a href="#process" class="nav-link" aria-label="Engagement process">~/process</a><a href="#contact" class="nav-link nav-cta" aria-label="Start a project">~/engage</a></nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section id="home" class="hero">
+ <div class="container hero-grid">
+  <div class="hero-content">
+   <div class="status-pill">
+<span class="status-dot" aria-hidden="true"></span>INDEPENDENT SECURITY &amp; ENGINEERING LAB</div>
+   <p class="hero-kicker">GHOST BREACH / LEARN · SECURE · BUILD · DEFEND</p>
+   <h1 class="hero-title">Penetration testing.<br><span class="text-cyan">Embedded engineering.</span>
+</h1>
+   <p class="hero-lead">Find the weaknesses in your web app. Build the firmware behind your device. Get clear evidence, practical fixes, and a handoff your team can use.</p>
+   <div class="hero-actions">
+<a class="btn btn-primary" href="#contact">Discuss your project <span aria-hidden="true">↗</span></a><a class="text-link" href="#deliverables">Explore sample deliverables <span aria-hidden="true">↓</span></a>
+</div>
+   <p class="hero-footnote">Defined scope. Direct technical communication. Evidence at handoff.</p>
+  </div>
+  <div class="hero-visual">
+   <div class="terminal-window overview-terminal">
+    <div class="terminal-header">
+<div class="terminal-dots" aria-hidden="true">
+<span class="dot dot-red"></span><span class="dot dot-amber"></span><span class="dot dot-green"></span>
+</div>
+<span class="terminal-title">ghost@breach: ~/project</span><span class="terminal-badge">FULL-SPECTRUM</span>
+</div>
+    <div class="terminal-body">
+<div class="cli-block">
+<p class="cli-cmd"><span class="prompt">$</span> whoami</p>
+<p class="cli-out">ghostbreachh — offensive security &amp; embedded systems lab.</p>
+</div>
+<div class="cli-block">
+<p class="cli-cmd"><span class="prompt">$</span> cat capabilities.txt</p>
+<p class="cli-out">Manual API testing. Rust tooling. Native ESP-IDF C. Low-power hardware.</p>
+</div>
+<div class="cli-block">
+<p class="cli-cmd"><span class="prompt">$</span> sys --status</p>
+<div class="cli-status-row">
+<span class="status-chip chip-security">[OK] AppSec</span><span class="status-chip chip-cloud">[OK] Infrastructure</span><span class="status-chip chip-hardware">[OK] Embedded</span>
+</div>
+</div>
+</div>
+    <div class="domain-mini-grid">
+     <div class="domain-mini-item accent-violet">
+<span class="domain-mini-label">APPLICATIONS</span><strong>Web &amp; API security</strong>
+</div>
+     <div class="domain-mini-item accent-emerald">
+<span class="domain-mini-label">INFRASTRUCTURE</span><strong>Hardening &amp; readiness</strong>
+</div>
+     <div class="domain-mini-item accent-cyan">
+<span class="domain-mini-label">DEVICES</span><strong>Hardware &amp; wireless</strong>
+</div>
+     <div class="domain-mini-item accent-cyan">
+<span class="domain-mini-label">FIRMWARE</span><strong>Embedded C &amp; IoT</strong>
+</div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class="container"><div class="credentials-strip" aria-label="Security and governance certifications">
+<span class="cred-title">CERTIFICATIONS / SECURITY &amp; GOVERNANCE</span><div class="cred-badges">
+<span class="cred-badge badge-emerald">ISO/IEC 42001 Lead Auditor</span><span class="cred-badge badge-emerald">ISO/IEC 27001 Associate</span><span class="cred-badge badge-violet">CRTOM</span><span class="cred-badge badge-violet">Cisco CEH</span>
+</div>
+</div></div>
+</section><section id="services" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">01 / SERVICES</span>
+          <h2 class="section-title">A clear scope. A useful outcome.</h2>
+          <p class="section-subtitle">
+            Choose the problem you need to solve. Timing and deliverables are agreed after scoping.
+          </p>
+        <p class="pricing-note">Pricing follows scope and milestones. A written proposal confirms fees, exclusions, and support before work begins.</p>
+</div>
+
+        <div class="services-grid">
+          <article class="service-card card-security">
+            <div class="service-top">
+              <span class="domain-pill pill-security">Offensive Security</span>
+              <span class="sla-pill">Indicative: 1–2 Weeks</span>
+            </div>
+            <h3>Web, API &amp; SaaS Penetration Testing</h3>
+            <p class="service-desc">
+              Find access-control gaps, authentication weaknesses, and business-logic flaws in your application.
+            </p>
+            <ul class="deliverable-list">
+              <li>OWASP Top 10, REST/GraphQL API &amp; multi-tenant SaaS testing</li>
+              <li>Prioritized findings, reproducible evidence &amp; remediation guidance</li>
+              <li>Patch retesting, with scope and window agreed in the proposal</li>
             </ul>
+            <a href="#contact" class="service-action" data-select-service="Web Application Penetration Testing">
+              <span>Scope Penetration Test</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
 
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-                ☰
-            </button>
-        </nav>
-    </header>
+          <article class="service-card card-defense">
+            <div class="service-top">
+              <span class="domain-pill pill-defense">Defense, Cloud &amp; GRC</span>
+              <span class="sla-pill">Indicative: 1–2 Weeks</span>
+            </div>
+            <h3>Infrastructure &amp; governance readiness</h3>
+            <p class="service-desc">
+              Review cloud access, server configuration, and security processes. Map gaps to a practical hardening plan.
+            </p>
+            <ul class="deliverable-list">
+              <li>Network segmentation, pfSense &amp; cloud access reviews</li>
+              <li>ISO 42001 (AI governance) &amp; ISO 27001 readiness assessments</li>
+              <li>Email authentication, detection rules &amp; configuration review</li>
+            </ul>
+            <a href="#contact" class="service-action" data-select-service="Security Consulting &amp; Infrastructure Hardening">
+              <span>Scope Hardening Audit</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
 
-    <!-- ============ HERO ============ -->
-    <section class="hero reveal" id="home">
-        <div class="hero-grid">
-            <!-- LEFT: the authoritative "terminal dossier" block -->
-            <div class="hero-content">
-                <span class="hero-badge">LEARN • SECURE • DEFEND</span>
+          <article class="service-card card-rf">
+            <div class="service-top">
+              <span class="domain-pill pill-rf">Hardware &amp; RF Security</span>
+              <span class="sla-pill">Indicative: 1–3 Weeks</span>
+            </div>
+            <h3>Hardware Security &amp; Wireless Auditing</h3>
+            <p class="service-desc">
+              Understand the interfaces and wireless behavior of devices within an explicitly authorized test scope.
+            </p>
+            <ul class="deliverable-list">
+              <li>802.11 Wi-Fi, BLE 5.0 &amp; Sub-GHz frame inspection &amp; fuzzing</li>
+              <li>UART/SPI/JTAG interface probing &amp; firmware binary extraction</li>
+              <li>Network isolation &amp; rogue access point detection</li>
+            </ul>
+            <a href="#contact" class="service-action" data-select-service="Hardware Security &amp; RF Auditing">
+              <span>Scope Hardware Audit</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
 
-                <h1 class="hero-title">ghostbreachh</h1>
-                <p class="hero-sub">offensive-security collective</p>
+          <article class="service-card card-hardware">
+            <div class="service-top">
+              <span class="domain-pill pill-hardware">Embedded Engineering</span>
+              <span class="sla-pill">Indicative: 2–4 Weeks</span>
+            </div>
+            <h3>Custom Embedded Firmware &amp; Turnkey IoT</h3>
+            <p class="service-desc">
+              Develop firmware, profile power use, and document the build so your team can reproduce and maintain it.
+            </p>
+            <ul class="deliverable-list">
+              <li>ESP-IDF C, FreeRTOS &amp; persistent device configuration</li>
+              <li>Measured sleep and active-current profiling</li>
+              <li>BOM, reviewed pin mappings &amp; documented flashing tools</li>
+            </ul>
+            <a href="#contact" class="service-action" data-select-service="Embedded Firmware &amp; IoT Hardware">
+              <span>Scope Firmware Build</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
 
-                <!-- A fake terminal snippet. Speaks the visitor's language. -->
-                <div class="terminal" aria-hidden="true">
-                    <div class="terminal-bar">
-                        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-                        <span class="terminal-title">ghost@breach: ~</span>
-                    </div>
-                    <pre class="terminal-body"><span class="c-prompt">$</span> whoami
-<span class="c-out">ghostbreachh — a crew breaking into security, ethically.</span>
-<span class="c-prompt">$</span> cat mission.txt
-<span class="c-out">A breach costs more than money — it costs the trust your clients gave you. We find the holes before someone else does, then stay until they're closed.</span>
-<span class="c-prompt">$</span> <span class="cursor">_</span></pre>
-                </div>
+    <section id="benchmarks" class="section section-alt"><div class="container">
+<div class="section-header">
+<span class="section-tag">02 / TELEMETRY</span><h2 class="section-title">Measured Project Benchmarks</h2>
+<p class="section-subtitle">Concrete results from low-power audio engineering and concurrent Rust reconnaissance.</p>
+</div>
+<div class="telemetry-grid">
+<article class="info-card"><div class="info-card-header">
+<div>
+<span class="mono-label text-cyan">ESP32-E + RT9080</span><h3>Deep-sleep draw</h3>
+</div>
+<span class="metric-highlight text-cyan">&gt;99.6% ↓</span>
+</div>
+<p class="info-card-desc">Clock-isolated sleep and amplifier shutdown in The Stadium Blueprint reference build.</p>
+<figure class="chart-scroll" tabindex="0" role="region" aria-label="Measured current chart; scroll horizontally on smaller screens"><svg class="power-chart" viewbox="0 0 520 185" role="img" aria-labelledby="powerTitle powerDesc"><title id="powerTitle">Reference idle and deep-sleep current, logarithmic scale</title>
+<desc id="powerDesc">ESP32-E and RT9080 reference build: 45,000 microamps idle; 10 to 150 microamps in deep sleep. The x-axis runs from 1 to 100,000 microamps on a logarithmic scale.</desc><line x1="20" y1="25" x2="20" y2="147" class="chart-grid"></line><text x="20" y="170" text-anchor="middle" class="chart-tick">1</text><line x1="116" y1="25" x2="116" y2="147" class="chart-grid"></line><text x="116" y="170" text-anchor="middle" class="chart-tick">10</text><line x1="212" y1="25" x2="212" y2="147" class="chart-grid"></line><text x="212" y="170" text-anchor="middle" class="chart-tick">100</text><line x1="308" y1="25" x2="308" y2="147" class="chart-grid"></line><text x="308" y="170" text-anchor="middle" class="chart-tick">1k</text><line x1="404" y1="25" x2="404" y2="147" class="chart-grid"></line><text x="404" y="170" text-anchor="middle" class="chart-tick">10k</text><line x1="500" y1="25" x2="500" y2="147" class="chart-grid"></line><text x="500" y="170" text-anchor="middle" class="chart-tick">100k</text><text x="20" y="17" class="chart-label">Reference idle · 45,000 µA</text><rect x="20" y="32" width="446.707" height="22" rx="3" class="chart-baseline"></rect><text x="20" y="95" class="chart-label">Deep sleep · 10–150 µA</text><line x1="116" x2="228.905" y1="123" y2="123" class="chart-range"></line><circle cx="116" cy="123" r="5" class="chart-endpoint"></circle><circle cx="228.905" cy="123" r="5" class="chart-endpoint"></circle></svg><figcaption>Log scale in µA: equal spacing represents a 10× change.</figcaption></figure><p class="benchmark-note">45 mA reference idle → 10–150 µA deep sleep. Calculated reduction: 99.67–99.98%.</p>
+<a href="#deliverables" data-open-deliverable="hardware" class="work-link-primary">Inspect the reference build ↓</a></article>
+<article class="info-card"><div class="info-card-header">
+<div>
+<span class="mono-label text-violet">SPECTRE / 9-PHASE PIPELINE</span><h3>Reconnaissance elapsed time</h3>
+</div>
+<span class="metric-highlight text-violet">−60%</span>
+</div>
+<p class="info-card-desc">Concurrent Rust orchestration reduces initial triage time against the project’s sequential workflow.</p>
+<div class="bar-comparison" role="img" aria-label="Normalized elapsed time: sequential baseline 100 percent, SPECTRE 40 percent; 60 percent less time.">
+<div class="bar-row">
+<div class="bar-meta">
+<span>Sequential project baseline</span><strong>100%</strong>
+</div>
+<div class="bar-track"><div class="bar-fill fill-baseline"></div></div>
+</div>
+<div class="bar-row">
+<div class="bar-meta">
+<span>SPECTRE pipeline</span><strong class="text-violet">40%</strong>
+</div>
+<div class="bar-track"><div class="bar-fill fill-spectre"></div></div>
+</div>
+<div class="bar-axis" aria-hidden="true">
+<span>0</span><span>50</span><span>100%</span>
+</div>
+</div>
+<p class="benchmark-note">Normalized elapsed time. The improvement applies to the project comparison, with the same intended discovery workload.</p>
+<a href="https://github.com/ghostbreachh/spectre" target="_blank" rel="noopener noreferrer" class="work-link-primary">Explore SPECTRE ↗</a></article>
+</div>
+<div class="kpi-trio">
+<div class="kpi-box">
+<strong class="kpi-value text-violet">100+</strong><span class="kpi-label">Lab environments completed</span>
+</div>
+<div class="kpi-box">
+<strong class="kpi-value text-cyan">1.5+ yrs</strong><span class="kpi-label">Project standby estimate</span>
+</div>
+<div class="kpi-box">
+<strong class="kpi-value text-emerald">10+ YARA</strong><span class="kpi-label">Aegis detection rules</span>
+</div>
+</div>
+</div></section><section id="work" class="section"><div class="container">
+<div class="section-header">
+<span class="section-tag">03 / SELECTED WORK</span><h2 class="section-title">Flagship projects. Concrete engineering.</h2>
+<p class="section-subtitle">Inspect the tooling, hardware decisions, and measurable results behind the lab.</p>
+</div>
+<div class="work-grid work-grid-2x2">
+<article class="work-card"><div class="work-card-top">
+<span class="domain-pill pill-security">Offensive tooling</span><span class="status-tag">Project notes</span>
+</div>
+<h3 class="work-title">SPECTRE &amp; Aegis — Recon &amp; Detection Engineering</h3>
+<p class="work-summary">A nine-phase asynchronous Rust recon engine, paired with Aegis incident simulation, forensic artifacts, and custom detection rules.</p>
+<div class="work-metrics-strip">
+<div class="work-metric">
+<strong class="wm-val text-cyan">-60%</strong><span class="wm-lbl">Recon elapsed time</span>
+</div>
+<div class="work-metric">
+<strong class="wm-val text-violet">9 phases</strong><span class="wm-lbl">Rust orchestration</span>
+</div>
+<div class="work-metric">
+<strong class="wm-val text-emerald">10+ YARA</strong><span class="wm-lbl">Detection rules</span>
+</div>
+</div>
+<div class="tag-row">
+<span class="tech-tag">Rust</span><span class="tech-tag">Python</span><span class="tech-tag">YARA</span>
+</div>
+<details class="work-details"><summary>Technical notes</summary><ul class="details-list">
+<li>
+<strong>SPECTRE:</strong> Nine stages from scope and host discovery to a consolidated report. Concurrent Rust execution produced the supplied 60% reduction in initial recon elapsed time.</li>
+<li>
+<strong>Aegis:</strong> A controlled incident simulation with DFIR artifacts, synthetic telemetry, and 10+ custom YARA rules. Public repositories are linked below.</li>
+</ul></details><div class="work-links">
+<a href="https://github.com/ghostbreachh/spectre" target="_blank" rel="noopener noreferrer" class="work-link-primary">SPECTRE repository ↗</a><a href="https://github.com/ghostbreachh/Aegis-Logistics-Breach-Simulation-" target="_blank" rel="noopener noreferrer" class="work-link-secondary">Aegis repository ↗</a>
+</div></article><article class="work-card"><div class="work-card-top">
+<span class="domain-pill pill-hardware">Embedded engineering</span><span class="status-tag">Reference build</span>
+</div>
+<h3 class="work-title">The Stadium Blueprint — Bluetooth Audio Subsystem</h3>
+<p class="work-summary">An ESP32-E audio build with dual MAX98357A I2S amplifiers, RT9080 power regulation, persistent pairing, and low-current standby.</p>
+<div class="work-metrics-strip">
+<div class="work-metric">
+<strong class="wm-val text-cyan">10–150 µA</strong><span class="wm-lbl">Deep-sleep draw</span>
+</div>
+<div class="work-metric">
+<strong class="wm-val text-violet">1.5+ yrs</strong><span class="wm-lbl">Standby estimate</span>
+</div>
+<div class="work-metric">
+<strong class="wm-val text-emerald">Dual I2S</strong><span class="wm-lbl">MAX98357A audio</span>
+</div>
+</div>
+<div class="tag-row">
+<span class="tech-tag">ESP32-E</span><span class="tech-tag">MAX98357A</span><span class="tech-tag">RT9080</span><span class="tech-tag">ESP-IDF C</span>
+</div>
+<details class="work-details"><summary>Technical notes</summary><ul class="details-list">
+<li>
+<strong>Audio &amp; state:</strong> Dual MAX98357A I2S amplifiers, hardware mute sequencing, AVRCP volume synchronization, and NVS reconnect state in native ESP-IDF C.</li>
+<li>
+<strong>Power &amp; handoff:</strong> ESP32-E + RT9080 regulation, 10–150 µA deep-sleep profiling, a project standby estimate of 1.5+ years, BOM, pinout, and offline flashing instructions. Standby depends on the cell and active duty cycle.</li>
+</ul></details><div class="work-links"><a href="#deliverables" data-open-deliverable="hardware" class="work-link-primary">Explore the hardware sample ↓</a></div></article><article class="work-card"><div class="work-card-top">
+<span class="domain-pill pill-rf">Hardware &amp; wireless</span><span class="status-tag">Lab platform</span>
+</div>
+<h3 class="work-title">REAPER — ESP32-S3 Wireless Lab Toolkit</h3>
+<p class="work-summary">Native ESP-IDF C on ESP32-S3-N16R8, with a 2 MiB PSRAM PCAP ring and structured JSON-RPC control over USB-OTG.</p>
+<div class="work-metrics-strip">
+<div class="work-metric">
+<strong class="wm-val text-cyan">ESP32-S3</strong><span class="wm-lbl">N16R8 platform</span>
+</div>
+<div class="work-metric">
+<strong class="wm-val text-violet">2 MiB</strong><span class="wm-lbl">PSRAM ring buffer</span>
+</div>
+<div class="work-metric">
+<strong class="wm-val text-emerald">TinyUSB</strong><span class="wm-lbl">JSON-RPC control</span>
+</div>
+</div>
+<div class="tag-row">
+<span class="tech-tag">Embedded C</span><span class="tech-tag">Wi-Fi / BLE</span><span class="tech-tag">USB control</span>
+</div>
+<details class="work-details"><summary>Technical notes</summary><ul class="details-list">
+<li>
+<strong>Capture engine:</strong> 2 MiB PSRAM ring buffer with PCAP-NG framing, packet inspection, and binary export.</li>
+<li>
+<strong>Control interface:</strong> TinyUSB CDC-ACM over USB-OTG, with JSON-RPC commands for the companion interface. ESP32-S3-N16R8 provides 16 MB flash and 8 MB PSRAM.</li>
+</ul></details><div class="work-links">
+<a href="https://github.com/ghostbreachh/reaper" target="_blank" rel="noopener noreferrer" class="work-link-primary">REAPER repository ↗</a><a href="#contact" data-select-service="Hardware Security &amp; RF Auditing" class="work-link-secondary">Discuss custom tooling →</a>
+</div></article><article class="work-card"><div class="work-card-top">
+<span class="domain-pill pill-defense">Infrastructure</span><span class="status-tag">Defensive lab</span>
+</div>
+<h3 class="work-title">Segmented Network Defense &amp; Traffic Analysis</h3>
+<p class="work-summary">A compact multi-port 2.5GbE firewall and local traffic-analysis platform for isolating test devices and investigating captured telemetry.</p>
+<div class="work-metrics-strip">
+<div class="work-metric">
+<strong class="wm-val text-cyan">2.5 GbE</strong><span class="wm-lbl">Multi-port network</span>
+</div>
+<div class="work-metric">
+<strong class="wm-val text-violet">Local AI</strong><span class="wm-lbl">PCAP triage</span>
+</div>
+<div class="work-metric">
+<strong class="wm-val text-emerald">pfSense</strong><span class="wm-lbl">VLAN enforcement</span>
+</div>
+</div>
+<div class="tag-row">
+<span class="tech-tag">pfSense</span><span class="tech-tag">VLANs</span><span class="tech-tag">Local PCAP analysis</span>
+</div>
+<details class="work-details"><summary>Technical notes</summary><ul class="details-list">
+<li>
+<strong>Segmentation:</strong> Multi-port 2.5GbE networking with pfSense and explicit VLAN/firewall policy separating untrusted lab devices.</li>
+<li>
+<strong>Local telemetry:</strong> Python/Scapy capture analysis and local AI-assisted PCAP triage. External network connectivity is described explicitly rather than as an air gap.</li>
+</ul></details><div class="work-links"><a href="#contact" data-select-service="Security Consulting &amp; Infrastructure Hardening" class="work-link-primary">Discuss infrastructure →</a></div></article>
+</div>
+</div></section><section id="deliverables" class="section section-alt"><div class="container">
+ <div class="section-header">
+<span class="section-tag">04 / SAMPLE HANDOFF</span><h2 class="section-title">See what useful documentation looks like.</h2>
+<p class="section-subtitle">An illustrative security finding and a reference ESP32-E / MAX98357A build excerpt, with client identifiers omitted.</p>
+ <div class="deliverable-tabs" role="tablist" aria-label="Sample deliverables" hidden>
+<button type="button" class="deliv-tab active" id="tab-pentest" data-deliv="pentest" role="tab" aria-controls="deliv-pentest" aria-selected="true" tabindex="0">01 / Security report</button><button type="button" class="deliv-tab" id="tab-hardware" data-deliv="hardware" role="tab" aria-controls="deliv-hardware" aria-selected="false" tabindex="-1">02 / Engineering package</button>
+</div>
+</div>
+ <div class="deliverable-preview" id="deliv-pentest"><div class="blueprint-window">
+<div class="blueprint-topbar">
+<span class="mono-label text-violet">ILLUSTRATIVE SECURITY FINDING</span><span class="status-chip chip-security">Tenant isolation</span>
+</div>
+<div class="blueprint-grid">
+  <div class="blueprint-col">
+<h3>1. Explain the finding</h3>
+<p class="blueprint-note">An authenticated request can access a record belonging to a different tenant because the lookup omits tenant ownership.</p>
+<div class="attack-chain-flow">
+   <div class="chain-node">
+<span class="node-step">CONTEXT</span><div>
+<strong>Authenticated account in tenant A</strong><span>The caller is signed in; the record belongs to tenant B.</span>
+</div>
+</div>
+<div class="chain-arrow" aria-hidden="true">↓</div>
+   <div class="chain-node">
+<span class="node-step">CAUSE</span><div>
+<strong>Lookup uses only the record ID</strong><span>The data query lacks the authenticated tenant boundary.</span>
+</div>
+</div>
+<div class="chain-arrow" aria-hidden="true">↓</div>
+   <div class="chain-node node-critical">
+<span class="node-step">IMPACT</span><div>
+<strong>Unauthorized cross-tenant read</strong><span>Record the exposed fields and affected scope before assigning severity.</span>
+</div>
+</div>
+  </div>
+</div>
+  <div class="blueprint-col">
+<h3>2. Connect the fix to the cause</h3>
+<p class="blueprint-note">Illustrative handler fragment. Trusted authentication middleware supplies the tenant; application-specific role and object permissions still apply.</p>
+<pre class="code-preview" tabindex="0" role="region" aria-label="Illustrative tenant-scoped query; scroll horizontally to read"><code>// Scope the record to the authenticated tenant.
+const record = await db.records.findFirst({
+  where: {
+    id: req.params.id,
+    tenantId: req.auth.tenantId
+  }
+});
+if (!record) return res.sendStatus(404);
+return res.json(toPublicRecord(record));</code></pre>
+<p class="blueprint-note">Retest: allowed tenant, different tenant, unauthenticated caller, and every route or method that exposes the record.</p>
+<div class="blueprint-footer-badges">
+<span class="tech-tag">Scope &amp; evidence</span><span class="tech-tag">Remediation</span><span class="tech-tag">Regression checks</span>
+</div>
+</div>
+ </div>
+</div></div>
+ <div class="deliverable-preview" id="deliv-hardware"><div class="blueprint-window">
+<div class="blueprint-topbar">
+<span class="mono-label text-cyan">REFERENCE ESP32-E / MAX98357A BUILD EXCERPT</span><span class="status-chip chip-hardware">Firmware + BOM + pinout</span>
+</div>
+<div class="blueprint-grid">
+  <div class="blueprint-col">
+<h3>1. Reference pinout &amp; audio hardware</h3>
+<p class="blueprint-note">ESP32-E with dual MAX98357A amplifiers and RT9080 regulation. GPIO mappings below are from the supplied build excerpt.</p>
+<p class="scroll-hint">Scroll to inspect every pin and harness column →</p>
+<div class="mini-table-wrap" tabindex="0" role="region" aria-label="Reference ESP32-E pinout; scroll horizontally for all columns"><table class="blueprint-table">
+<caption>Reference ESP32-E / MAX98357A signal routing</caption>
+<thead><tr>
+<th scope="col">Component</th>
+<th scope="col">Signal</th>
+<th scope="col">MCU pin</th>
+<th scope="col">Harness / note</th>
+</tr></thead>
+<tbody>
+<tr>
+<th scope="row">MAX98357A #1 / #2</th>
+<td>I2S LRC / word select</td>
+<td><code>GPIO 26</code></td>
+<td>Yellow · 22 AWG</td>
+</tr>
+<tr>
+<th scope="row">MAX98357A #1 / #2</th>
+<td>I2S BCLK / bit clock</td>
+<td><code>GPIO 25</code></td>
+<td>Blue · 22 AWG</td>
+</tr>
+<tr>
+<th scope="row">MAX98357A #1 / #2</th>
+<td>I2S DIN / audio data</td>
+<td>Firmware-selected</td>
+<td>Match <code>data_out_num</code> to the schematic</td>
+</tr>
+<tr>
+<th scope="row">MAX98357A #1 / #2</th>
+<td>SD / MODE control</td>
+<td><code>GPIO 14</code></td>
+<td>Orange · check boot/reset mute state</td>
+</tr>
+<tr>
+<th scope="row">Wake switch</th>
+<td>RTC deep-sleep wake</td>
+<td><code>GPIO 27</code></td>
+<td>Brown · verify wake behavior</td>
+</tr>
+</tbody>
+</table></div>
+<p class="reference-note">The source excerpt does not specify DIN’s GPIO. Use the matching firmware and schematic for that assignment.</p>
+</div>
+  <div class="blueprint-col">
+<h3>2. Native C firmware &amp; offline flashing</h3>
+<p class="blueprint-note">The reference package pairs ESP-IDF C source with Windows/macOS/Linux flashing instructions and a bill of materials.</p>
+<pre class="code-preview" tabindex="0" role="region" aria-label="Reference ESP32 flashing command; scroll horizontally to read"><code>#!/usr/bin/env bash
+# Reference ESP32 build; legacy esptool 4.x syntax
+set -euo pipefail
+: "${PORT:?Set PORT to the connected ESP32 serial port}"
+esptool.py --chip esp32 --port "$PORT" --baud 921600 write_flash -z \
+  0x1000 bootloader.bin \
+  0x8000 partition-table.bin \
+  0x10000 stadium_blueprint_prod.bin</code></pre>
+<p class="blueprint-note">Offsets shown are for this ESP32 reference layout. Match the build’s generated flash arguments when using other images or boards.</p>
+<div class="blueprint-footer-badges">
+<span class="tech-tag">ESP-IDF C</span><span class="tech-tag">MAX98357A × 2</span><span class="tech-tag">RT9080 LDO</span><span class="tech-tag">Bench QA</span>
+</div>
+</div>
+ </div>
+</div></div>
+ <div class="sample-download">
+<a class="btn btn-secondary" href="samples.html" target="_blank" rel="noopener noreferrer">Open printable samples ↗</a><span>Print or save a PDF from your browser.</span>
+</div>
+</div></section><section id="stack" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">05 / TOOLKIT</span>
+          <h2 class="section-title">Tools for the whole system</h2>
+          <p class="section-subtitle">
+            Explore the tools behind the work.
+          </p>
 
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn-primary">Request Assessment</a>
-                    <a href="#services" class="btn-secondary">Explore Services</a>
-                </div>
+          </div>
+
+        <details class="mobile-collapsible" open><summary>Explore the technical stack</summary><div class="stack-tabs" role="group" aria-label="Filter technical stack" hidden="">
+            <button type="button" class="stack-tab active" data-filter="all" aria-pressed="true" aria-controls="stackContent">All domains</button>
+            <button type="button" class="stack-tab" data-filter="security" aria-pressed="false" aria-controls="stackContent">Security &amp; governance</button>
+            <button type="button" class="stack-tab" data-filter="embedded" aria-pressed="false" aria-controls="stackContent">Embedded &amp; hardware</button>
+          </div>
+        <p class="sr-only" id="stackStatus" role="status" aria-live="polite"></p>
+<div class="stack-pillars" id="stackContent">
+
+          <div class="stack-column" data-category="security">
+            <div class="stack-col-header header-security">
+              <div>
+                <span class="mono-label text-violet">PILLAR A // SECURITY, TOOLING &amp; GOVERNANCE</span>
+                <h3>Offensive Security &amp; System Defense</h3>
+              </div>
+              <span class="pillar-icon text-violet" aria-hidden="true">⚠</span>
             </div>
 
-            <!-- RIGHT: your banner art (now a 115KB WebP, loads fast). Tilt + glare
-                 mirror the cards so the whole hero shares one motion language. -->
-            <div class="hero-art tilt-banner">
-                <img src="assets/banner.webp" alt="Ghostbreachh banner" width="1200" height="675"
-                    decoding="async" fetchpriority="high">
-                <div class="card-glare banner-glare" aria-hidden="true"></div>
+            <div class="stack-items">
+              <div class="stack-item">
+                <div class="stack-item-head">
+                  <strong>Web, API &amp; Business-Logic Pentesting</strong>
+                  <span class="stack-badge badge-violet">AppSec</span>
+                </div>
+                <p>Manual BOLA/IDOR hunting, authentication bypasses, SSRF, Burp Suite Pro, Nuclei custom templates, and OWASP Top 10 remediation.</p>
+              </div>
+
+              <div class="stack-item">
+                <div class="stack-item-head">
+                  <strong>Custom Security Tooling (Rust &amp; Python)</strong>
+                  <span class="stack-badge badge-violet">Tooling</span>
+                </div>
+                <p>Concurrent Rust recon engines (SPECTRE), Python/Scapy packet manipulation, adversary emulation (Aegis), and custom YARA rule engineering.</p>
+              </div>
+
+              <div class="stack-item">
+                <div class="stack-item-head">
+                  <strong>Cloud security &amp; ISO 27001/42001 readiness</strong>
+                  <span class="stack-badge badge-emerald">Defense &amp; GRC</span>
+                </div>
+                <p>ISO/IEC 42001 AI governance readiness, ISO/IEC 27001 ISMS readiness, pfSense network segmentation, Linux hardening, and SPF/DKIM/DMARC.</p>
+              </div>
+
+              <div class="stack-item">
+                <div class="stack-item-head">
+                  <strong>Hardware &amp; RF Security Auditing</strong>
+                  <span class="stack-badge badge-violet">Wireless</span>
+                </div>
+                <p>802.11 promiscuous sniffing, rogue AP sentries, BLE 5.0 enumeration, firmware binary extraction, and acoustic noise masking.</p>
+              </div>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- ============ ABOUT ============ -->
-    <section class="section" id="about">
-        <p class="section-kicker">/* ~/about */</p>
-        <h2 class="section-title reveal">who we are</h2>
-
-        <div class="about-grid reveal">
-            <div class="glass-card">
-                <p>
-                    Ghostbreachh is an independent offensive-security collective. We help startups,
-                    SMEs, agencies and growing businesses improve their security posture through
-                    affordable vulnerability assessments, penetration testing, WordPress hardening
-                    and security consulting. Our mission is to make serious security accessible to
-                    organizations of every size — and to train the next generation of defenders
-                    while we do it.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ SKILLS ============ -->
-    <section class="section" id="skills">
-        <p class="section-kicker">/* ~/stack */</p>
-        <h2 class="section-title reveal">our stack</h2>
-        <p class="section-description reveal">
-            A snapshot of the tooling and techniques we use to test, break and harden your systems.
-        </p>
-
-        <div class="grid">
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">🛡️</div>
-                    <h3>OWASP Top 10</h3>
-                    <p>Web-app testing mapped to the OWASP Top 10 — the standard buyers and auditors actually ask about.</p>
-                    <span class="card-tag">OWASP</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">🎯</div>
-                    <h3>Red Teaming</h3>
-                    <p>Adversary-style engagements that test how far a real attacker could get — quietly, on scope.</p>
-                    <span class="card-tag">Red Team</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">🔍</div>
-                    <h3>Manual Hunting</h3>
-                    <p>Scanners miss what hands find. We hunt logic flaws and auth gaps line by line.</p>
-                    <span class="card-tag">Manual</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">🕷️</div>
-                    <h3>Burp Suite</h3>
-                    <p>Professional interception, fuzzing and vuln-analysis workflows.</p>
-                    <span class="card-tag">Tool</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">📡</div>
-                    <h3>Recon &amp; OSINT</h3>
-                    <p>External attack-surface mapping, subdomain enum and exposure discovery.</p>
-                    <span class="card-tag">Recon</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">⚠️</div>
-                    <h3>Threat &amp; Vuln Triage</h3>
-                    <p>Prioritized findings ranked by real business risk — not a 200-page dump of noise.</p>
-                    <span class="card-tag">Triage</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">🧬</div>
-                    <h3>Malware Analysis / RE</h3>
-                    <p>We take apart malware and protocols to understand attackers from the inside.</p>
-                    <span class="card-tag">RE</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">🛠️</div>
-                    <h3>Custom Tooling</h3>
-                    <p>Offensive and defensive scripts built for your stack when off-the-shelf won't cut it.</p>
-                    <span class="card-tag">Build</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">🐧</div>
-                    <h3>Linux &amp; Network Hardening</h3>
-                    <p>Secure config, privilege management and system hardening.</p>
-                    <span class="card-tag">Linux</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">💥</div>
-                    <h3>Web App Exploitation</h3>
-                    <p>Injection, auth bypass and business-logic abuse — found and proven safely.</p>
-                    <span class="card-tag">Exploit</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-        </div>
-    </section>
-
-    <!-- ============ SERVICES ============ -->
-    <section class="section" id="services">
-        <p class="section-kicker">/* ~/services */</p>
-        <h2 class="section-title reveal">services</h2>
-        <p class="section-description reveal">
-            Affordable cybersecurity engagements built for startups and small businesses.
-        </p>
-
-        <div class="grid">
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <h3>Web Security Assessment</h3>
-                    <p>Find and fix vulnerabilities in modern web applications.</p>
-                    <span class="card-tag">Web Security</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <h3>Vulnerability Assessment</h3>
-                    <p>Discover weaknesses with prioritized remediation steps.</p>
-                    <span class="card-tag">Assessment</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <h3>Penetration Testing</h3>
-                    <p>Simulate real-world attacks to expose exploitable flaws.</p>
-                    <span class="card-tag">VAPT</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <h3>WordPress Security</h3>
-                    <p>Hardening, plugin review and malware detection.</p>
-                    <span class="card-tag">CMS</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <h3>Security Consulting</h3>
-                    <p>Clear reports, awareness training and tailored advisory for your team.</p>
-                    <span class="card-tag">Advisory</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-        </div>
-    </section>
-
-    <!-- ============ HIGHLIGHTS / STATS ============ -->
-    <section class="section" id="highlights">
-        <p class="section-kicker">/* ~/stats */</p>
-        <h2 class="section-title reveal">by the numbers</h2>
-
-        <div class="grid stats-grid grid--4">
-            <div class="glass-card reveal">
-                <h3 data-counter="10">0</h3>
-                <p>Projects &amp; Case Studies</p>
-            </div>
-            <div class="glass-card reveal">
-                <h3 data-counter="100">0</h3>
-                <p>Labs Cleared</p>
-            </div>
-            <div class="glass-card reveal">
-                <h3 data-counter="300">0</h3>
-                <p>Research Hours</p>
-            </div>
-            <div class="glass-card reveal">
-                <h3 data-counter="10">0</h3>
-                <p>Core Skills</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ WHY US ============ -->
-    <section class="section" id="why">
-        <p class="section-kicker">/* ~/why-us */</p>
-        <h2 class="section-title reveal">why teams choose us</h2>
-        <p class="section-description reveal">
-            Big firms find your flaws, hand you a PDF, and leave. We're built differently.
-        </p>
-
-        <div class="grid grid--4">
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <h3>We stay</h3>
-                    <p>Most vendors vanish after the report. We run a phased model: a setup engagement, then monthly check-ins and a free pentest every six months. Security isn't a one-time fix — we treat it like the ongoing thing it is.</p>
-                    <span class="card-tag">Continuity</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <h3>We're human</h3>
-                    <p>No sales decks, no gatekeepers, no 40-page quotes in jargon. You talk to the people doing the work. We listen first, then explain in plain English.</p>
-                    <span class="card-tag">Approachable</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <h3>We're certified &amp; relentless</h3>
-                    <p>100+ hands-on labs cleared, industry certifications, and a team that does red-teaming, OWASP Top 10 manual hunting, and reverse-engineers real malware to understand attackers from the inside.</p>
-                    <span class="card-tag">Capability</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <h3>We teach</h3>
-                    <p>Security shouldn't be a mystery you pay to never understand. We offer mentoring and "ask-us-anything" sessions — paid, no fluff — so your team gets sharper, not dependent.</p>
-                    <span class="card-tag">Mentoring</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-        </div>
-    </section>
-
-    <!-- ============ WORK / PROJECTS ============ -->
-    <section class="section" id="work">
-        <p class="section-kicker">/* ~/work */</p>
-        <h2 class="section-title reveal">selected work</h2>
-        <p class="section-description reveal">
-            Internal labs, tooling and research we build to stay sharp — the same
-            methodology we bring to client engagements.
-        </p>
-
-        <div class="grid">
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <h3>Aegis Logistics — simulated breach</h3>
-                    <p>A full simulated breach of a fictional logistics company: external recon,
-                        lateral movement, privilege escalation and a clean remediation path — built
-                        end-to-end as a public case study. This is exactly how we'd map your environment.</p>
-                    <span class="card-tag"><a href="https://github.com/ghostbreachh" target="_blank" rel="noopener">view on GitHub ↗</a></span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <h3>SQL injection → admin takeover</h3>
-                    <p>During authorized recon of an exposed admin surface, we identified a SQL
-                        injection flaw and demonstrated privilege escalation to the dashboard — then
-                        wrote the fix. Proof we go past the scanner and actually exploit, safely, on scope.</p>
-                    <span class="card-tag">Case Study</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-        </div>
-
-        <p class="section-description reveal" style="margin-top:36px;">
-            Credibility at a glance:
-        </p>
-        <ul class="contact-list" style="justify-content:center;margin-top:10px;">
-            <li>🧪 100+ labs cleared (TryHackMe &amp; more)</li>
-            <li>🎓 Industry certifications</li>
-            <li>🎯 Red teaming &amp; OWASP Top 10 manual hunting</li>
-            <li>🧬 Custom offensive tooling &amp; malware analysis</li>
-            <li>💻 Open-source on GitHub</li>
-        </ul>
-    </section>
-
-    <!-- ============ ALSO AVAILABLE ============ -->
-    <section class="section" id="more">
-        <p class="section-kicker">/* ~/more */</p>
-        <h2 class="section-title reveal">also available</h2>
-        <p class="section-description reveal">
-            Beyond the core engagements, we offer specialized work — the kind bigger firms either can't or won't do.
-        </p>
-
-        <div class="grid grid--4">
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">🧬</div>
-                    <h3>Reverse Engineering</h3>
-                    <p>We take apart binaries, malware and protocols to understand exactly how they work — and how they break.</p>
-                    <span class="card-tag">RE</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">🔌</div>
-                    <h3>Cloud &amp; API Security</h3>
-                    <p>We assess cloud configs and APIs for broken auth, excessive exposure and business-logic flaws scattered across modern stacks.</p>
-                    <span class="card-tag">Cloud/API</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">📝</div>
-                    <h3>Code Review</h3>
-                    <p>We read your source line by line to catch logic flaws, auth gaps and injection points scanners never see. Secure by review, not just by test.</p>
-                    <span class="card-tag">Review</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">🎓</div>
-                    <h3>Mentoring &amp; "Ask Us Anything"</h3>
-                    <p>Paid, no-fluff sessions. Learn the how, not just the what. We'd rather your team get sharper than keep you dependent.</p>
-                    <span class="card-tag">Teach</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-        </div>
-    </section>
-
-    <!-- ============ PROCESS ============ -->
-    <section class="section" id="process">
-        <p class="section-kicker">/* ~/process */</p>
-        <h2 class="section-title reveal">how we work</h2>
-        <p class="section-description reveal">
-            A calm, predictable path — no mystery, no jargon.
-        </p>
-
-        <div class="grid grid--4">
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">1️⃣</div>
-                    <h3>Scope</h3>
-                    <p>You tell us what's in scope. We price it together based on attack surface and effort. No surprises.</p>
-                    <span class="card-tag">Step 01</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">2️⃣</div>
-                    <h3>Test</h3>
-                    <p>Recon, then careful, authorized testing. We find the maximum we can, safely.</p>
-                    <span class="card-tag">Step 02</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">3️⃣</div>
-                    <h3>Report</h3>
-                    <p>A clean, intuitive report: executive summary, how we found what (with proof-of-concept), and plain remediation steps.</p>
-                    <span class="card-tag">Step 03</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-
-            <article class="tilt-card reveal" tabindex="0">
-                <div class="card-content">
-                    <div class="card-icon">4️⃣</div>
-                    <h3>Ongoing</h3>
-                    <p>Monthly check-ins and advisory, plus a free pentest every six months — because threats don't stop.</p>
-                    <span class="card-tag">Step 04</span>
-                </div>
-                <div class="card-glare" aria-hidden="true"></div>
-            </article>
-        </div>
-    </section>
-
-    <!-- ============ CONTACT ============ -->
-    <!--
-      PHASE 1 FIX: the form now actually delivers. On submit we build a
-      mailto: link (your choice) with a prefilled subject + body and open the
-      visitor's mail client. No backend needed. The mailto: anchor is also a
-      plain fallback for no-JS users.
-    -->
-    <section id="contact" class="contact-section" aria-labelledby="contact-heading">
-        <div class="contact-container">
-            <div class="contact-info">
-                <span class="section-badge">CONTACT</span>
-                <h2 id="contact-heading">let's secure your business</h2>
-                <p class="contact-description">
-                    Startup, SME, agency or school — Ghostbreachh finds your risks, hardens your
-                    apps and lifts your security posture with affordable, no-nonsense engagements.
-                </p>
-                <ul class="contact-list">
-                    <li>🛡️ Web Security Assessment</li>
-                    <li>🔍 Vulnerability Assessment</li>
-                    <li>⚡ Penetration Testing</li>
-                    <li>🌐 WordPress Security</li>
-                    <li>💡 Security Consulting</li>
-                </ul>
-
-                <p class="contact-description" style="margin-top:22px;">
-                    Not sure what you need? Just talk to us. We'll listen, tell you straight, and
-                    help where we can — whether that's a full pentest or a quick look at your
-                    current posture. You can rest easy knowing we'll do our best to find everything
-                    that's there.
-                </p>
-
-                <!-- Terminal wit, part 2: mirrors the hero terminal but here it
-                     "sends" the inquiry. Small detail that rewards the curious. -->
-                <div class="terminal contact-terminal" aria-hidden="true">
-                    <div class="terminal-bar">
-                        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-                        <span class="terminal-title">ghost@breach: ~/contact</span>
-                    </div>
-<pre class="terminal-body"><span class="c-prompt">$</span> send --inquiry --to ghostbreachh
-<span class="c-out">opening secure channel… ✔</span>
-<span class="c-out">drop your scope. we reply &lt; 24h. no fluff.</span>
-<span class="c-prompt">$</span> <span class="cursor">_</span></pre>
-                </div>
-
-                <p class="contact-direct">
-                    or email us directly:
-                    <a href="mailto:ghostbreachh@gmail.com">ghostbreachh@gmail.com</a>
-                </p>
+          <div class="stack-column" data-category="embedded">
+            <div class="stack-col-header header-hardware">
+              <div>
+                <span class="mono-label text-cyan">PILLAR B // SILICON &amp; FIRMWARE</span>
+                <h3>Embedded Systems &amp; IoT Engineering</h3>
+              </div>
+              <span class="pillar-icon text-cyan" aria-hidden="true">⚙</span>
             </div>
 
-            <form id="contactForm" class="glass-form" novalidate>
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input id="name" name="name" type="text" autocomplete="name" required>
-                    <small class="error"></small>
+            <div class="stack-items">
+              <div class="stack-item">
+                <div class="stack-item-head">
+                  <strong>Native C / C++ &amp; ESP-IDF Architecture</strong>
+                  <span class="stack-badge badge-cyan">Firmware</span>
                 </div>
+                <p>Register-level peripheral control, FreeRTOS multi-tasking, NVS state persistence, brownout protection, and reproducible builds.</p>
+              </div>
 
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input id="email" name="email" type="email" autocomplete="email" required>
-                    <small class="error"></small>
+              <div class="stack-item">
+                <div class="stack-item-head">
+                  <strong>Ultra-Low-Power &amp; Battery Engineering</strong>
+                  <span class="stack-badge badge-cyan">Power</span>
                 </div>
+                <p>Sleep and active-current profiling, RTC GPIO latching, RT9080 LDO regulation, and LiPo PMIC management.</p>
+              </div>
 
-                <div class="form-group">
-                    <label for="company">Company</label>
-                    <input id="company" name="company" type="text" autocomplete="organization">
+              <div class="stack-item">
+                <div class="stack-item-head">
+                  <strong>Digital Audio &amp; High-Speed Buses</strong>
+                  <span class="stack-badge badge-cyan">Interfaces</span>
                 </div>
+                <p>I2S DMA audio with mute sequencing (MAX98357A), Bluetooth Classic A2DP/AVRCP, SPI/I2C/UART, and TinyUSB JSON-RPC consoles.</p>
+              </div>
 
-                <div class="form-group">
-                    <label for="service">Service Needed</label>
-                    <select id="service" name="service" required>
-                        <option value="">Select a Service</option>
-                        <option>Web Security Assessment</option>
-                        <option>Vulnerability Assessment</option>
-                        <option>Penetration Testing</option>
-                        <option>WordPress Security</option>
-                        <option>Security Consulting</option>
-                    </select>
-                    <small class="error"></small>
+              <div class="stack-item">
+                <div class="stack-item-head">
+                  <strong>Turnkey Manufacturing &amp; Flashing Toolchains</strong>
+                  <span class="stack-badge badge-cyan">Production</span>
                 </div>
+                <p>Complete US/global BOMs, color-coded wiring schematics, 3D CAD sleds, and 1-click browser/offline <code>esptool</code> flashers.</p>
+              </div>
+            </div>
+          </div>
 
-                <div class="form-group">
-                    <label for="message">Project Details</label>
-                    <textarea id="message" name="message" rows="6" required></textarea>
-                    <small class="error"></small>
-                </div>
-
-                <button type="submit" class="btn-primary submit-btn">Send Inquiry</button>
-                <div id="formStatus" aria-live="polite"></div>
-                <!-- Fallback shown only if no mail client opens (e.g. phones
-                     with no mail app). Never leaves the visitor stuck. -->
-                <div id="mailFallback" hidden>
-                    <p class="contact-direct">No mail app? Send manually or copy the draft:</p>
-                    <a id="mailLink" class="btn-secondary" href="#">open prefilled email</a>
-                    <button type="button" id="copyMail" class="btn-secondary" style="margin-left:0;margin-top:10px;">copy email draft</button>
-                </div>
-            </form>
         </div>
+      </details>
+</div>
     </section>
+
+    <section id="process" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">06 / WORKING TOGETHER</span>
+          <h2 class="section-title">How Engagements Work</h2>
+          <p class="section-subtitle">
+            Agree on the scope, stay informed, and leave with a usable handoff.
+          </p>
+        </div>
+
+        <div class="process-steps">
+          <div class="process-step">
+            <span class="step-num">01</span>
+            <h3>Scope &amp; NDA</h3>
+            <p>Agree on assets, constraints, authorization, confidentiality, milestones, and acceptance criteria.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-num">02</span>
+            <h3>Audit or Engineer</h3>
+            <p>Test, investigate, or build within the agreed scope, with progress updates and clear escalation paths.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-num">03</span>
+            <h3>Verify &amp; Hand Over</h3>
+            <p>Provide evidence, fixes, and reproducible build or test instructions matched to the project.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-num">04</span>
+            <h3>Retest &amp; Support</h3>
+            <p>Confirm the retest window, support period, and any scope changes in the written proposal.</p>
+          </div>
+        </div>
+
+        <div id="contact" class="contact-wrapper">
+ <div class="contact-info">
+<span class="section-tag">06 / START A PROJECT</span><h2>What are you building<br>or defending?</h2>
+<p>Share the problem, your goals, and an approximate timeline. Keep the first message high level.</p>
+ <div class="trust-guarantees">
+<div class="guarantee-item">
+<span class="g-check text-emerald" aria-hidden="true">✓</span><div>
+<strong>Scope before execution</strong><p>Agree on deliverables, authorization, fees, and acceptance criteria before work starts.</p>
+</div>
+</div>
+<div class="guarantee-item">
+<span class="g-check text-cyan" aria-hidden="true">✓</span><div>
+<strong>Confidentiality by agreement</strong><p>Arrange the NDA and an appropriate channel before sharing credentials, findings, or private source code.</p>
+</div>
+</div>
+</div>
+ <div class="direct-channels">
+<a class="channel-chip" href="mailto:ghostbreachh@gmail.com">ghostbreachh@gmail.com ↗</a><button type="button" id="copyEmailBtn" class="channel-chip channel-chip-btn" hidden>Copy email address</button><a class="channel-chip" href="https://github.com/ghostbreachh" target="_blank" rel="noopener noreferrer">GitHub / ghostbreachh ↗</a>
+</div>
+<div class="production-chat" data-production-chat hidden>
+<button type="button" id="loadChatBtn" class="btn btn-secondary" hidden>Load live chat</button><p id="chatDisclosure" class="contact-note">Optional chat is provided by Chatling. Loading it connects to that service; messages you send there are handled by Chatling.</p>
+<p id="chatStatus" class="inline-status" role="status" aria-live="polite"></p>
+</div>
+<p class="inline-status" id="copyEmailStatus" role="status" aria-live="polite"></p>
+ <p class="contact-note">This page prepares a brief locally. It does not send messages or confirm email delivery.</p>
+ </div>
+ <div class="contact-form-card">
+<div class="form-card-header">
+<span class="mono-label">PROJECT BRIEF</span><span class="response-sla">Review before sending</span>
+</div>
+ <p class="form-intro" id="formHelp">Required fields are marked *. Avoid passwords, tokens, and confidential system details.</p>
+ <noscript><p class="form-feedback">The brief builder needs JavaScript. Email <a href="mailto:ghostbreachh@gmail.com">ghostbreachh@gmail.com</a> with a short project overview.</p></noscript>
+ <form id="contactForm" aria-describedby="formHelp"><fieldset id="intakeFields" class="intake-form" disabled>
+<legend class="sr-only">Project inquiry details</legend>
+  <div class="form-row">
+<div class="form-group">
+<label for="name">Name or alias <span class="req">*</span></label><input type="text" id="name" name="name" autocomplete="name" maxlength="100" required aria-describedby="nameError"><span class="field-error" id="nameError" hidden></span>
+</div>
+<div class="form-group">
+<label for="email">Email <span class="req">*</span></label><input type="email" id="email" name="email" autocomplete="email" maxlength="254" required aria-describedby="emailError"><span class="field-error" id="emailError" hidden></span>
+</div>
+</div>
+  <div class="form-group">
+<label for="service">Service <span class="req">*</span></label><select id="service" name="service" required aria-describedby="serviceError"><option value="" selected disabled>Choose a service</option>
+<option value="Web Application Penetration Testing">Web &amp; API penetration testing</option>
+<option value="Security Consulting &amp; Infrastructure Hardening">Infrastructure &amp; governance readiness</option>
+<option value="Hardware Security &amp; RF Auditing">Hardware &amp; wireless auditing</option>
+<option value="Embedded Firmware &amp; IoT Hardware">Embedded firmware &amp; IoT</option>
+<option value="General Inquiry / Custom Project">General inquiry / custom project</option></select><span class="field-error" id="serviceError" hidden></span>
+</div>
+  <div class="form-group">
+<label for="timeline">Timeline</label><select id="timeline" name="timeline"><option>Flexible / Exploratory</option>
+<option>Within 2 weeks</option>
+<option>This month</option>
+<option>Next quarter</option></select>
+</div>
+  <div class="form-group">
+<label for="message">Project overview <span class="req">*</span></label><textarea id="message" name="message" rows="5" maxlength="5000" required placeholder="What are you building, what needs attention, and what would a useful outcome look like?" aria-describedby="messageError messageCount"></textarea><span class="field-error" id="messageError" hidden></span><span class="char-count" id="messageCount">0 / 5000</span>
+</div>
+  <div id="formControls" class="form-actions-row" hidden><button type="submit" class="btn btn-primary btn-flex">Prepare my brief <span aria-hidden="true">→</span></button></div>
+ </fieldset></form>
+ <p id="formFeedback" class="form-feedback" role="status" aria-live="polite" aria-atomic="true" hidden></p>
+ <section id="briefPreview" class="brief-preview" aria-labelledby="briefHeading" hidden><h3 id="briefHeading" tabindex="-1">Review your brief</h3>
+<p class="blueprint-note">Nothing has been sent. Choose how you want to send it.</p>
+<label class="sr-only" for="briefText">Formatted project brief</label><textarea id="briefText" rows="10" readonly spellcheck="false"></textarea><p id="longBriefHint" class="blueprint-note" hidden>This brief is too long for a reliable email-app link. Copy it into webmail or download it as an attachment.</p>
+<div class="form-actions-row">
+<a class="btn btn-primary" id="emailDraftLink">Open email draft ↗</a><button type="button" id="copyBriefBtn" class="btn btn-secondary">Copy brief</button><button type="button" id="downloadBriefBtn" class="btn btn-secondary">Download .txt</button>
+</div></section>
+ </div>
+</div>
+</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+<span class="brand-prompt">Ghost Breach<span class="text-cyan"> /</span></span><p>Independent security &amp; embedded engineering.</p>
+</div>
+      <div class="footer-links">
+<a href="#services">Services</a><a href="#work">Work</a><a href="#deliverables">Samples</a><a href="#site-notices">Privacy &amp; engagement</a><a href="mailto:ghostbreachh@gmail.com">Email</a>
+</div>
+      <div class="footer-copy">
+        <span>© <span id="year">2026</span> Ghost Breach. All rights reserved.</span>
+      </div>
+    <div id="site-notices" class="site-notices">
+<details><summary>Privacy &amp; contact</summary><p>The brief builder processes fields in this page until you copy them, download a text file, or open an email draft. It uses no analytics or browser storage. The published site offers optional Chatling chat; its script loads only when you select “Load live chat.” Chatling may process connection information and messages sent through its widget under its own policies. The hosting provider may keep normal request logs. Your email provider handles messages you send by email. <a href="mailto:ghostbreachh@gmail.com">Contact Ghost Breach</a> with questions.</p></details><details><summary>Engagement &amp; authorization</summary><p>Service descriptions and timing are indicative. A written agreement defines scope, fees, confidentiality, support, and acceptance criteria. Security testing requires explicit authorization from the relevant system owner and an agreed scope. ISO-related services described here concern readiness and gap assessment. No certification outcome is promised.</p></details><details><summary>Report a website issue</summary><p>Email <a href="mailto:ghostbreachh@gmail.com?subject=Website%20security%20report">ghostbreachh@gmail.com</a> with a minimal description and the affected page. Do not include credentials or other people's data. This contact notice does not authorize testing of third-party systems.</p></details>
+</div>
+</div>
+  </footer>
+
+  </body>
 
     <!-- ============ FOOTER ============ -->
     <!-- Giant cut-off wordmark = the "scale/dominance" move borrowed from Hermes -->
